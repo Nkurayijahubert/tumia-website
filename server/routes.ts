@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertWaitlistEntrySchema } from "@shared/schema";
+import { sendWaitlistNotification } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API Routes
@@ -13,6 +14,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         // Add to waitlist
         const entry = await storage.addToWaitlist(validatedData);
+        
+        // Send email notification
+        try {
+          await sendWaitlistNotification(validatedData);
+          console.log("Waitlist notification email sent successfully");
+        } catch (emailError) {
+          // Log the error but don't fail the request if email fails
+          console.error("Failed to send waitlist notification email:", emailError);
+        }
+        
         res.status(201).json({ 
           success: true, 
           message: "Successfully added to waitlist",
@@ -53,6 +64,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         error: error.message
       });
     }
+  });
+
+  // Health check endpoint (useful for Vercel)
+  app.get("/api/health", (req, res) => {
+    res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
   });
 
   const httpServer = createServer(app);
