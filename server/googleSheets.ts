@@ -16,19 +16,33 @@ const getAuth = () => {
     throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY environment variable not set');
   }
 
+  // First, check if the service account key is a valid JSON string already (for development)
   try {
-    // The environment variable contains a base64-encoded service account key JSON
-    const serviceAccountKey = JSON.parse(
-      Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf-8')
-    );
-
-    return new google.auth.JWT({
-      email: serviceAccountKey.client_email,
-      key: serviceAccountKey.private_key,
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-    });
+    try {
+      // Try parsing it directly as JSON first (might be a direct JSON string)
+      const serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+      
+      return new google.auth.JWT({
+        email: serviceAccountKey.client_email,
+        key: serviceAccountKey.private_key,
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      });
+    } catch (directParseError) {
+      // If direct parsing fails, try to decode it from base64
+      const decoded = Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf-8');
+      const serviceAccountKey = JSON.parse(decoded);
+      
+      return new google.auth.JWT({
+        email: serviceAccountKey.client_email,
+        key: serviceAccountKey.private_key,
+        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+      });
+    }
   } catch (error) {
     console.error('Error parsing Google service account key:', error);
+    // Log a few characters of the key to help with debugging (without revealing the whole key)
+    const keyPreview = process.env.GOOGLE_SERVICE_ACCOUNT_KEY.substring(0, 20) + '...';
+    console.error(`Key preview: ${keyPreview}`);
     throw new Error('Invalid GOOGLE_SERVICE_ACCOUNT_KEY format');
   }
 };
