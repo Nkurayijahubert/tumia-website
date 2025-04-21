@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cp -r vercel-api api && cp client/src/main-production.tsx client/src/main.tsx && VITE_FORCE_STATIC_MODE=true vite build -c vite.production.config.ts",
+  "buildCommand": "./vercel-build.sh",
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "framework": null,
