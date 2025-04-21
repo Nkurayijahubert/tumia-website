@@ -1,17 +1,7 @@
 {
   "version": 2,
-  "buildCommand": "./vercel-build.sh",
-  "outputDirectory": "dist/public",
-  "installCommand": "npm install",
-  "framework": null,
+  "framework": "static",
   "routes": [
-    { "src": "/api/health", "dest": "/api/health.js" },
-    { "src": "/api/waitlist", "dest": "/api/waitlist.js" },
-    { "src": "/api", "dest": "/api/index.js" },
     { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "env": {
-    "VITE_FORCE_STATIC_MODE": "true",
-    "GOOGLE_SHEET_ID": "1r40aCV0CEeJZGXn815a71YGRi5GLWCYE2Uh9o1gMsqQ"
-  }
+  ]
 }
