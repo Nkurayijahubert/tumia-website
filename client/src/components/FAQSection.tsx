@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const faqs = [
   {
     question: "When will Tumia be available?",
-    answer: "Tumia is currently in private beta with select partners. We're planning a phased rollout starting in Q3 2023. Join our waitlist to be among the first to gain access.",
+    answer: "Tumia is currently in private beta with select partners. We're planning a phased rollout starting in Q3 2025. Join our waitlist to be among the first to gain access.",
   },
   {
     question: "Which countries does Tumia support?",
