@@ -47,11 +47,13 @@ export default function HowItWorksSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             className="bg-white rounded-2xl shadow-lg overflow-hidden"
+            style={{ maxHeight: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
             <img 
               src={howItWorksImage} 
               alt="Investment leads to growth - Two professionals shaking hands" 
-              className="w-full h-auto"
+              className="w-full object-contain"
+              style={{ maxHeight: '100%' }}
             />
           </motion.div>
           

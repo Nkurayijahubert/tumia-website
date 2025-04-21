@@ -17,7 +17,7 @@ export default function HeroSection() {
               Coming Soon
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A2A2A] leading-tight mb-6">
-              AI-Powered Financial <span className="text-primary">Empowerment</span> for African Startups
+              Financial <span className="text-primary">Empowerment</span> for African Startups
             </h1>
             <p className="text-lg md:text-xl text-[#767676] mb-8 max-w-xl mx-auto lg:mx-0">
               Build strong financial habits, achieve your growth goals, and become a scalable, investment-ready business.
