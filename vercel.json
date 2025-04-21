@@ -4,12 +4,12 @@
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "framework": null,
+  "rewrites": [
+    { "source": "/api/health", "destination": "/api/health" },
+    { "source": "/api/waitlist", "destination": "/api/waitlist" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
   "env": {
     "VITE_FORCE_STATIC_MODE": "true"
-  },
-  "functions": {
-    "api/*.ts": {
-      "runtime": "nodejs18.x"
-    }
   }
 }
