@@ -34,7 +34,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function WaitlistSection() {
-  const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle");
+  const [formStatus, setFormStatus] = useState<"idle" | "success" | "error" | "exists">("idle");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -52,11 +52,19 @@ export default function WaitlistSection() {
     onSuccess: () => {
       setFormStatus("success");
       form.reset();
-      // Reset form status after 5 seconds
-      setTimeout(() => setFormStatus("idle"), 5000);
+      // Reset form status after 8 seconds
+      setTimeout(() => setFormStatus("idle"), 8000);
     },
-    onError: () => {
-      setFormStatus("error");
+    onError: (error: any) => {
+      // Check if this is a duplicate email error (409 Conflict)
+      if (error.message && error.message.includes("409")) {
+        setFormStatus("exists");
+        form.reset();
+        // Reset form status after 8 seconds
+        setTimeout(() => setFormStatus("idle"), 8000);
+      } else {
+        setFormStatus("error");
+      }
     },
   });
 
@@ -213,6 +221,16 @@ export default function WaitlistSection() {
                     <span className="font-medium">Success!</span>
                   </div>
                   <p>Thank you for joining our waitlist. We'll be in touch soon with more information.</p>
+                </div>
+              )}
+              
+              {formStatus === "exists" && (
+                <div className="mt-6 p-4 bg-blue-100 text-blue-800 rounded-lg">
+                  <div className="flex items-center mb-2">
+                    <CheckCircle className="text-blue-600 mr-2" size={20} />
+                    <span className="font-medium">Already Registered</span>
+                  </div>
+                  <p>Thank you for your interest! We already have your email in our system. We'll contact you soon with more information about Tumia.</p>
                 </div>
               )}
               
