@@ -13,8 +13,9 @@ import {
 import { motion } from "framer-motion";
 
 // For GitHub Pages deployment with FormSpree
-// Replace YOUR_FORMSPREE_FORM_ID with your actual FormSpree form ID
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORMSPREE_FORM_ID";
+// The FormSpree endpoint can be configured via environment variable or use the default
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "YOUR_FORMSPREE_FORM_ID";
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
 
 export default function StaticWaitlistSection() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error">("idle");
