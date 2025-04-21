@@ -1,0 +1,7 @@
+# Ignore everything except public directory and config files
+/*
+!public
+!vercel.json
+!.vercelignore
+!/api
+!static.txt
