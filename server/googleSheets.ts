@@ -16,34 +16,55 @@ const getAuth = () => {
     throw new Error('GOOGLE_SERVICE_ACCOUNT_KEY environment variable not set');
   }
 
-  // First, check if the service account key is a valid JSON string already (for development)
   try {
+    let serviceAccountKey;
+    
+    // Multiple approaches to handle different formats the key might be in
     try {
-      // Try parsing it directly as JSON first (might be a direct JSON string)
-      const serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
-      
-      return new google.auth.JWT({
-        email: serviceAccountKey.client_email,
-        key: serviceAccountKey.private_key,
-        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-      });
+      // 1. First try: Direct JSON parsing (if the env var contains JSON directly)
+      serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
     } catch (directParseError) {
-      // If direct parsing fails, try to decode it from base64
-      const decoded = Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf-8');
-      const serviceAccountKey = JSON.parse(decoded);
-      
-      return new google.auth.JWT({
-        email: serviceAccountKey.client_email,
-        key: serviceAccountKey.private_key,
-        scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-      });
+      try {
+        // 2. Second try: Handle potential JSON string escaping issues
+        serviceAccountKey = JSON.parse(JSON.stringify(eval(`(${process.env.GOOGLE_SERVICE_ACCOUNT_KEY})`)));
+      } catch (evalError) {
+        try {
+          // 3. Third try: Base64 decode then parse
+          const decoded = Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf-8');
+          serviceAccountKey = JSON.parse(decoded);
+        } catch (base64Error) {
+          // 4. Fourth try: Maybe it's a stringified JSON that's also base64 encoded
+          try {
+            const decoded = Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, 'base64').toString('utf-8');
+            serviceAccountKey = JSON.parse(JSON.stringify(eval(`(${decoded})`)));
+          } catch (finalError) {
+            throw new Error('Could not parse service account key in any format');
+          }
+        }
+      }
     }
+    
+    // Verify we have the required fields
+    if (!serviceAccountKey.client_email || !serviceAccountKey.private_key) {
+      throw new Error('Service account key is missing required fields (client_email or private_key)');
+    }
+    
+    console.log('Successfully parsed service account key for: ' + serviceAccountKey.client_email);
+    
+    return new google.auth.JWT({
+      email: serviceAccountKey.client_email,
+      key: serviceAccountKey.private_key,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
   } catch (error) {
     console.error('Error parsing Google service account key:', error);
+    
     // Log a few characters of the key to help with debugging (without revealing the whole key)
     const keyPreview = process.env.GOOGLE_SERVICE_ACCOUNT_KEY.substring(0, 20) + '...';
     console.error(`Key preview: ${keyPreview}`);
-    throw new Error('Invalid GOOGLE_SERVICE_ACCOUNT_KEY format');
+    console.error(`Key length: ${process.env.GOOGLE_SERVICE_ACCOUNT_KEY.length} characters`);
+    
+    throw new Error('Invalid GOOGLE_SERVICE_ACCOUNT_KEY format: ' + error.message);
   }
 };
 
