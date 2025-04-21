@@ -1,14 +1,15 @@
 {
   "version": 2,
-  "buildCommand": "VITE_FORCE_STATIC_MODE=true vite build -c vite.production.config.ts && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
-  "outputDirectory": "dist",
+  "buildCommand": "VITE_FORCE_STATIC_MODE=true vite build -c vite.production.config.ts",
+  "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "framework": null,
-  "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api" },
-    { "source": "/(.*)", "destination": "/" }
-  ],
   "env": {
     "VITE_FORCE_STATIC_MODE": "true"
+  },
+  "functions": {
+    "api/*.ts": {
+      "runtime": "nodejs18.x"
+    }
   }
 }
