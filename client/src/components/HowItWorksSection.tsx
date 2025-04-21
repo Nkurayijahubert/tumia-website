@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import howItWorksImage from "../assets/4.jpg";
 
 const steps = [
   {
@@ -45,72 +46,13 @@ export default function HowItWorksSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl shadow-lg p-8"
+            className="bg-white rounded-2xl shadow-lg overflow-hidden"
           >
-            <svg
-              viewBox="0 0 600 400"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            <img 
+              src={howItWorksImage} 
+              alt="Investment leads to growth - Two professionals shaking hands" 
               className="w-full h-auto"
-            >
-              {/* Background */}
-              <rect width="600" height="400" fill="#F6F1ED" opacity="0.2" />
-              
-              {/* Woman (Amina) */}
-              <circle cx="150" cy="120" r="40" fill="#2A2A2A" />
-              <rect x="120" y="160" width="60" height="80" rx="10" fill="#005B68" />
-              
-              {/* Solar panels */}
-              <rect x="300" y="80" width="60" height="40" rx="5" fill="#2A2A2A" />
-              <rect x="310" y="90" width="10" height="10" fill="#F9C846" />
-              <rect x="330" y="90" width="10" height="10" fill="#F9C846" />
-              <rect x="310" y="110" width="10" height="10" fill="#F9C846" />
-              <rect x="330" y="110" width="10" height="10" fill="#F9C846" />
-              
-              <rect x="380" y="80" width="60" height="40" rx="5" fill="#2A2A2A" />
-              <rect x="390" y="90" width="10" height="10" fill="#F9C846" />
-              <rect x="410" y="90" width="10" height="10" fill="#F9C846" />
-              <rect x="390" y="110" width="10" height="10" fill="#F9C846" />
-              <rect x="410" y="110" width="10" height="10" fill="#F9C846" />
-              
-              <rect x="460" y="80" width="60" height="40" rx="5" fill="#2A2A2A" />
-              <rect x="470" y="90" width="10" height="10" fill="#F9C846" />
-              <rect x="490" y="90" width="10" height="10" fill="#F9C846" />
-              <rect x="470" y="110" width="10" height="10" fill="#F9C846" />
-              <rect x="490" y="110" width="10" height="10" fill="#F9C846" />
-              
-              {/* Houses/villages */}
-              <path d="M300 280 L330 250 L360 280 Z" fill="#2A2A2A" />
-              <rect x="310" y="280" width="40" height="30" fill="#2A2A2A" />
-              <rect x="330" y="290" width="10" height="20" fill="#F6F1ED" />
-              
-              <path d="M380 280 L410 250 L440 280 Z" fill="#2A2A2A" />
-              <rect x="390" y="280" width="40" height="30" fill="#2A2A2A" />
-              <rect x="410" y="290" width="10" height="20" fill="#F6F1ED" />
-              
-              <path d="M460 280 L490 250 L520 280 Z" fill="#2A2A2A" />
-              <rect x="470" y="280" width="40" height="30" fill="#2A2A2A" />
-              <rect x="490" y="290" width="10" height="20" fill="#F6F1ED" />
-              
-              {/* Tumia mobile device */}
-              <rect x="80" y="220" width="100" height="160" rx="10" fill="#FFFFFF" stroke="#2A2A2A" strokeWidth="3" />
-              <rect x="90" y="230" width="80" height="15" rx="3" fill="#005B68" />
-              <text x="95" y="242" fontFamily="Arial" fontSize="10" fill="white">Tumia</text>
-              
-              {/* App UI Elements */}
-              <rect x="90" y="255" width="80" height="10" rx="2" fill="#E0E0E0" />
-              <rect x="90" y="275" width="40" height="40" rx="5" fill="#F9C846" opacity="0.7" />
-              <rect x="140" y="275" width="30" height="40" rx="5" fill="#005B68" opacity="0.7" />
-              
-              <rect x="90" y="325" width="80" height="10" rx="2" fill="#E0E0E0" />
-              <rect x="90" y="345" width="80" height="20" rx="5" fill="#005B68" />
-              <text x="115" y="360" fontFamily="Arial" fontSize="10" fill="white">Track</text>
-              
-              {/* Connecting lines */}
-              <path d="M170 180 C230 160, 280 220, 310 180" stroke="#005B68" strokeWidth="2" strokeDasharray="5,5" />
-              <path d="M170 200 C280 240, 350 200, 380 240" stroke="#005B68" strokeWidth="2" strokeDasharray="5,5" />
-              <path d="M170 220 C300 300, 400 260, 450 260" stroke="#005B68" strokeWidth="2" strokeDasharray="5,5" />
-            </svg>
+            />
           </motion.div>
           
           <div className="space-y-10">
