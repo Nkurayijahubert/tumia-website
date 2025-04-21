@@ -69,6 +69,15 @@ Set this to "true" if you want to force the site to use the static version even 
 5. Encode the JSON key as base64 and add it as the `GOOGLE_SERVICE_ACCOUNT_KEY` environment variable
 6. Add your Google Sheet ID as the `GOOGLE_SHEET_ID` environment variable
 
+### Alternative Manual Export
+
+If you encounter issues with the Google Sheets integration, you can always export the waitlist entries manually:
+
+1. Visit `/api/waitlist/export` on your deployed site
+2. This will download a CSV file with all waitlist entries
+3. Import this CSV file into Google Sheets
+4. This endpoint is protected by default and will only work in production with proper authorization
+
 ## Setting Up FormSpree (for Static Mode)
 
 1. Sign up for a [FormSpree account](https://formspree.io/)

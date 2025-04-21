@@ -26,10 +26,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
             console.log("Waitlist entry added to Google Sheet successfully");
           } else {
             console.warn("Waitlist entry not added to Google Sheet - check configuration");
+            
+            // Fallback - log the entry to the console for easier retrieval
+            console.log("\n==== NEW WAITLIST ENTRY ====");
+            console.log(`Name: ${validatedData.name}`);
+            console.log(`Email: ${validatedData.email}`);
+            console.log(`Company: ${validatedData.company}`);
+            console.log(`Role: ${validatedData.role}`);
+            console.log(`Date: ${new Date().toISOString()}`);
+            console.log("============================\n");
           }
         } catch (sheetError) {
           // Log the error but don't fail the request if Google Sheets operation fails
           console.error("Failed to add waitlist entry to Google Sheet:", sheetError);
+          
+          // Fallback - log the entry to the console for easier retrieval
+          console.log("\n==== NEW WAITLIST ENTRY ====");
+          console.log(`Name: ${validatedData.name}`);
+          console.log(`Email: ${validatedData.email}`);
+          console.log(`Company: ${validatedData.company}`);
+          console.log(`Role: ${validatedData.role}`);
+          console.log(`Date: ${new Date().toISOString()}`);
+          console.log("============================\n");
         }
         
         res.status(201).json({ 
@@ -69,6 +87,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         success: false, 
         message: "Failed to retrieve waitlist entries",
+        error: error.message
+      });
+    }
+  });
+  
+  // Export waitlist entries as CSV (for easy manual export to Google Sheets)
+  app.get("/api/waitlist/export", async (req, res) => {
+    try {
+      const entries = await storage.getWaitlistEntries();
+      
+      // Create CSV header
+      let csv = "Name,Email,Company,Role,Signup Date\n";
+      
+      // Add each entry as a row
+      entries.forEach(entry => {
+        // Format date
+        const date = new Date(entry.createdAt).toISOString();
+        
+        // Escape any commas in the fields
+        const name = entry.name.includes(',') ? `"${entry.name}"` : entry.name;
+        const email = entry.email.includes(',') ? `"${entry.email}"` : entry.email;
+        const company = entry.company.includes(',') ? `"${entry.company}"` : entry.company;
+        const role = entry.role.includes(',') ? `"${entry.role}"` : entry.role;
+        
+        csv += `${name},${email},${company},${role},${date}\n`;
+      });
+      
+      // Set headers for CSV download
+      res.setHeader('Content-Type', 'text/csv');
+      res.setHeader('Content-Disposition', 'attachment; filename=tumia-waitlist.csv');
+      
+      res.send(csv);
+    } catch (error: any) {
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to export waitlist entries",
         error: error.message
       });
     }
