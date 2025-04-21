@@ -1,0 +1,538 @@
+var __defProp = Object.defineProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// server/index.ts
+import "dotenv/config";
+import express2 from "express";
+
+// server/routes.ts
+import { createServer } from "http";
+
+// shared/schema.ts
+var schema_exports = {};
+__export(schema_exports, {
+  insertUserSchema: () => insertUserSchema,
+  insertWaitlistEntrySchema: () => insertWaitlistEntrySchema,
+  users: () => users,
+  waitlistEntries: () => waitlistEntries
+});
+import { pgTable, text, serial } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+var users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull()
+});
+var waitlistEntries = pgTable("waitlist_entries", {
+  id: serial("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  company: text("company").notNull(),
+  role: text("role").notNull()
+});
+var insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true
+});
+var insertWaitlistEntrySchema = createInsertSchema(waitlistEntries).pick({
+  name: true,
+  email: true,
+  company: true,
+  role: true
+});
+
+// server/db.ts
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-serverless";
+import ws from "ws";
+neonConfig.webSocketConstructor = ws;
+var pool;
+var db;
+try {
+  if (!process.env.DATABASE_URL) {
+    console.error("DATABASE_URL is not set. Database functionality will be disabled.");
+    pool = {};
+    db = {};
+  } else {
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      // Add some additional connection settings for better reliability
+      max: 10,
+      // maximum number of clients
+      idleTimeoutMillis: 3e4,
+      // how long a client is kept idle before being closed
+      connectionTimeoutMillis: 5e3
+      // how long to wait for connection
+    });
+    db = drizzle({ client: pool, schema: schema_exports });
+    pool.query("SELECT 1").then(() => {
+      console.log("Database connection successful");
+    }).catch((err) => {
+      console.error("Database connection test failed:", err.message);
+    });
+  }
+} catch (error) {
+  console.error("Error initializing database:", error);
+  pool = {};
+  db = {};
+}
+
+// server/storage.ts
+import { eq } from "drizzle-orm";
+var DatabaseStorage = class {
+  async getUser(id) {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || void 0;
+  }
+  async getUserByUsername(username) {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || void 0;
+  }
+  async createUser(insertUser) {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+  async addToWaitlist(entry) {
+    try {
+      const [waitlistEntry] = await db.insert(waitlistEntries).values(entry).returning();
+      return waitlistEntry;
+    } catch (error) {
+      if (error.code === "23505") {
+        throw new Error("Email already registered");
+      }
+      throw error;
+    }
+  }
+  async getWaitlistEntries() {
+    return await db.select().from(waitlistEntries);
+  }
+  async getWaitlistEntryByEmail(email) {
+    const [entry] = await db.select().from(waitlistEntries).where(eq(waitlistEntries.email, email));
+    return entry || void 0;
+  }
+};
+var storage = new DatabaseStorage();
+
+// server/googleSheets.ts
+import { google } from "googleapis";
+var googleSheetsInitialized = false;
+var getAuth = () => {
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY environment variable not set");
+  }
+  try {
+    let serviceAccountKey;
+    try {
+      serviceAccountKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+    } catch (directParseError) {
+      try {
+        serviceAccountKey = JSON.parse(JSON.stringify(eval(`(${process.env.GOOGLE_SERVICE_ACCOUNT_KEY})`)));
+      } catch (evalError) {
+        try {
+          const decoded2 = Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, "base64").toString("utf-8");
+          serviceAccountKey = JSON.parse(decoded2);
+        } catch (base64Error) {
+          try {
+            const decoded = Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY, "base64").toString("utf-8");
+            serviceAccountKey = JSON.parse(JSON.stringify(eval(`(${decoded})`)));
+          } catch (finalError) {
+            throw new Error("Could not parse service account key in any format");
+          }
+        }
+      }
+    }
+    if (!serviceAccountKey.client_email || !serviceAccountKey.private_key) {
+      throw new Error("Service account key is missing required fields (client_email or private_key)");
+    }
+    console.log("Successfully parsed service account key for: " + serviceAccountKey.client_email);
+    return new google.auth.JWT({
+      email: serviceAccountKey.client_email,
+      key: serviceAccountKey.private_key,
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"]
+    });
+  } catch (error) {
+    console.error("Error parsing Google service account key:", error);
+    const keyPreview = process.env.GOOGLE_SERVICE_ACCOUNT_KEY.substring(0, 20) + "...";
+    console.error(`Key preview: ${keyPreview}`);
+    console.error(`Key length: ${process.env.GOOGLE_SERVICE_ACCOUNT_KEY.length} characters`);
+    throw new Error("Invalid GOOGLE_SERVICE_ACCOUNT_KEY format: " + error.message);
+  }
+};
+var initGoogleSheets = async () => {
+  if (googleSheetsInitialized) return;
+  try {
+    const auth = getAuth();
+    await auth.authorize();
+    googleSheetsInitialized = true;
+    console.log("Google Sheets API initialized successfully");
+  } catch (error) {
+    console.error("Failed to initialize Google Sheets API:", error);
+    throw error;
+  }
+};
+var addToGoogleSheet = async (entry) => {
+  if (!process.env.GOOGLE_SHEET_ID || !process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+    console.warn("Google Sheets credentials not configured. Entry not saved.");
+    return false;
+  }
+  try {
+    await initGoogleSheets();
+    const auth = getAuth();
+    const sheets = google.sheets({ version: "v4", auth });
+    const currentDate = (/* @__PURE__ */ new Date()).toISOString();
+    const values = [
+      [entry.name, entry.email, entry.company, entry.role, currentDate]
+    ];
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: "Sheet1!A:E",
+      // Use the default 'Sheet1' instead of 'Waitlist'
+      valueInputOption: "RAW",
+      requestBody: {
+        values
+      }
+    });
+    console.log(`Added ${entry.email} to Google Sheet successfully`);
+    return true;
+  } catch (error) {
+    console.error("Error adding to Google Sheet:", error);
+    return false;
+  }
+};
+var setupGoogleSheet = async () => {
+  if (!process.env.GOOGLE_SHEET_ID || !process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+    console.warn("Google Sheets credentials not configured. Sheet setup skipped.");
+    return false;
+  }
+  try {
+    await initGoogleSheets();
+    const auth = getAuth();
+    const sheets = google.sheets({ version: "v4", auth });
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: "Sheet1!A1:E1"
+    });
+    const rows = response.data.values;
+    if (!rows || rows.length === 0) {
+      const headers = [["Name", "Email", "Company", "Role", "Signup Date"]];
+      await sheets.spreadsheets.values.update({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: "Sheet1!A1:E1",
+        valueInputOption: "RAW",
+        requestBody: {
+          values: headers
+        }
+      });
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        requestBody: {
+          requests: [
+            {
+              repeatCell: {
+                range: {
+                  sheetId: 0,
+                  // Assuming this is the first sheet
+                  startRowIndex: 0,
+                  endRowIndex: 1,
+                  startColumnIndex: 0,
+                  endColumnIndex: 5
+                },
+                cell: {
+                  userEnteredFormat: {
+                    textFormat: {
+                      bold: true
+                    },
+                    backgroundColor: {
+                      red: 0.9,
+                      green: 0.9,
+                      blue: 0.9
+                    }
+                  }
+                },
+                fields: "userEnteredFormat(textFormat,backgroundColor)"
+              }
+            }
+          ]
+        }
+      });
+      console.log("Google Sheet headers initialized successfully");
+    }
+    return true;
+  } catch (error) {
+    console.error("Error setting up Google Sheet:", error);
+    return false;
+  }
+};
+
+// server/routes.ts
+async function registerRoutes(app2) {
+  app2.post("/api/waitlist", async (req, res) => {
+    try {
+      const validatedData = insertWaitlistEntrySchema.parse(req.body);
+      try {
+        const entry = await storage.addToWaitlist(validatedData);
+        try {
+          await setupGoogleSheet();
+          const added = await addToGoogleSheet(validatedData);
+          if (added) {
+            console.log("Waitlist entry added to Google Sheet successfully");
+          } else {
+            console.warn("Waitlist entry not added to Google Sheet - check configuration");
+            console.log("\n==== NEW WAITLIST ENTRY ====");
+            console.log(`Name: ${validatedData.name}`);
+            console.log(`Email: ${validatedData.email}`);
+            console.log(`Company: ${validatedData.company}`);
+            console.log(`Role: ${validatedData.role}`);
+            console.log(`Date: ${(/* @__PURE__ */ new Date()).toISOString()}`);
+            console.log("============================\n");
+          }
+        } catch (sheetError) {
+          console.error("Failed to add waitlist entry to Google Sheet:", sheetError);
+          console.log("\n==== NEW WAITLIST ENTRY ====");
+          console.log(`Name: ${validatedData.name}`);
+          console.log(`Email: ${validatedData.email}`);
+          console.log(`Company: ${validatedData.company}`);
+          console.log(`Role: ${validatedData.role}`);
+          console.log(`Date: ${(/* @__PURE__ */ new Date()).toISOString()}`);
+          console.log("============================\n");
+        }
+        res.status(201).json({
+          success: true,
+          message: "Successfully added to waitlist",
+          data: { id: entry.id }
+        });
+      } catch (error) {
+        if (error.message === "Email already registered") {
+          try {
+            await setupGoogleSheet();
+            const added = await addToGoogleSheet(validatedData);
+            if (added) {
+              console.log("Duplicate email, but still added to Google Sheet for testing");
+            }
+          } catch (sheetError) {
+            console.error("Error adding duplicate to Google Sheet:", sheetError);
+          }
+          return res.status(409).json({
+            success: false,
+            message: "This email is already registered on our waitlist"
+          });
+        }
+        throw error;
+      }
+    } catch (error) {
+      res.status(400).json({
+        success: false,
+        message: "Invalid data provided",
+        errors: error.errors || error.message
+      });
+    }
+  });
+  app2.get("/api/waitlist", async (req, res) => {
+    try {
+      const entries = await storage.getWaitlistEntries();
+      res.json({
+        success: true,
+        data: entries
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to retrieve waitlist entries",
+        error: error.message
+      });
+    }
+  });
+  app2.get("/api/waitlist/export", async (req, res) => {
+    try {
+      const entries = await storage.getWaitlistEntries();
+      let csv = "Name,Email,Company,Role,Signup Date\n";
+      entries.forEach((entry) => {
+        const date = new Date(entry.createdAt).toISOString();
+        const name = entry.name ? entry.name.includes(",") ? `"${entry.name}"` : entry.name : "";
+        const email = entry.email ? entry.email.includes(",") ? `"${entry.email}"` : entry.email : "";
+        const company = entry.company ? entry.company.includes(",") ? `"${entry.company}"` : entry.company : "";
+        const role = entry.role ? entry.role.includes(",") ? `"${entry.role}"` : entry.role : "";
+        csv += `${name},${email},${company},${role},${date}
+`;
+      });
+      res.setHeader("Content-Type", "text/csv");
+      res.setHeader("Content-Disposition", "attachment; filename=tumia-waitlist.csv");
+      res.send(csv);
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to export waitlist entries",
+        error: error.message
+      });
+    }
+  });
+  app2.get("/api/health", (req, res) => {
+    res.status(200).json({ status: "ok", timestamp: (/* @__PURE__ */ new Date()).toISOString() });
+  });
+  const httpServer = createServer(app2);
+  return httpServer;
+}
+
+// server/vite.ts
+import express from "express";
+import fs from "fs";
+import path2 from "path";
+import { createServer as createViteServer, createLogger } from "vite";
+
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
+import path from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+var vite_config_default = defineConfig({
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    themePlugin(),
+    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
+      await import("@replit/vite-plugin-cartographer").then(
+        (m) => m.cartographer()
+      )
+    ] : []
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets")
+    }
+  },
+  root: path.resolve(import.meta.dirname, "client"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true
+  }
+});
+
+// server/vite.ts
+import { nanoid } from "nanoid";
+var viteLogger = createLogger();
+function log(message, source = "express") {
+  const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+async function setupVite(app2, server) {
+  const serverOptions = {
+    middlewareMode: true,
+    hmr: { server },
+    allowedHosts: true
+  };
+  const vite = await createViteServer({
+    ...vite_config_default,
+    configFile: false,
+    customLogger: {
+      ...viteLogger,
+      error: (msg, options) => {
+        viteLogger.error(msg, options);
+        process.exit(1);
+      }
+    },
+    server: serverOptions,
+    appType: "custom"
+  });
+  app2.use(vite.middlewares);
+  app2.use("*", async (req, res, next) => {
+    const url = req.originalUrl;
+    try {
+      const clientTemplate = path2.resolve(
+        import.meta.dirname,
+        "..",
+        "client",
+        "index.html"
+      );
+      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      template = template.replace(
+        `src="/src/main.tsx"`,
+        `src="/src/main.tsx?v=${nanoid()}"`
+      );
+      const page = await vite.transformIndexHtml(url, template);
+      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+    } catch (e) {
+      vite.ssrFixStacktrace(e);
+      next(e);
+    }
+  });
+}
+function serveStatic(app2) {
+  const distPath = path2.resolve(import.meta.dirname, "public");
+  if (!fs.existsSync(distPath)) {
+    throw new Error(
+      `Could not find the build directory: ${distPath}, make sure to build the client first`
+    );
+  }
+  app2.use(express.static(distPath));
+  app2.use("*", (_req, res) => {
+    res.sendFile(path2.resolve(distPath, "index.html"));
+  });
+}
+
+// server/index.ts
+var app = express2();
+app.use(express2.json());
+app.use(express2.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path3 = req.path;
+  let capturedJsonResponse = void 0;
+  const originalResJson = res.json;
+  res.json = function(bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path3.startsWith("/api")) {
+      let logLine = `${req.method} ${path3} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "\u2026";
+      }
+      log(logLine);
+    }
+  });
+  next();
+});
+(async () => {
+  try {
+    await setupGoogleSheet();
+    console.log("Google Sheets integration initialized");
+  } catch (error) {
+    console.warn("Google Sheets integration not available:", error.message);
+  }
+  const server = await registerRoutes(app);
+  app.use((err, _req, res, _next) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(status).json({ message });
+    throw err;
+  });
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
+  }
+  const port = 5e3;
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true
+  }, () => {
+    log(`serving on port ${port}`);
+  });
+})();
