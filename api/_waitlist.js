@@ -1,9 +1,5 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
-
-/**
- * Simplified waitlist API endpoint for Vercel
- */
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+// Simplified waitlist API endpoint
+module.exports = (req, res) => {
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ 
@@ -40,4 +36,4 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       error: error.message
     });
   }
-}
+};

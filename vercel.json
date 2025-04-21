@@ -1,13 +1,14 @@
 {
   "version": 2,
-  "buildCommand": "VITE_FORCE_STATIC_MODE=true vite build -c vite.production.config.ts",
+  "buildCommand": "cp -r vercel-api api && VITE_FORCE_STATIC_MODE=true vite build -c vite.production.config.ts",
   "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "framework": null,
-  "rewrites": [
-    { "source": "/api/health", "destination": "/api/health" },
-    { "source": "/api/waitlist", "destination": "/api/waitlist" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "routes": [
+    { "src": "/api/health", "dest": "/api/health.js" },
+    { "src": "/api/waitlist", "dest": "/api/waitlist.js" },
+    { "src": "/api", "dest": "/api/index.js" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ],
   "env": {
     "VITE_FORCE_STATIC_MODE": "true"
