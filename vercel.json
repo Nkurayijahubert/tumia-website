@@ -11,9 +11,7 @@
     { "src": "/(.*)", "dest": "/index.html" }
   ],
   "env": {
-    "VITE_FORCE_STATIC_MODE": "true"
-  },
-  "buildEnvironment": {
+    "VITE_FORCE_STATIC_MODE": "true",
     "GOOGLE_SHEET_ID": "1r40aCV0CEeJZGXn815a71YGRi5GLWCYE2Uh9o1gMsqQ"
   }
 }
