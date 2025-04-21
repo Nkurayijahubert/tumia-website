@@ -1,6 +1,0 @@
-# Ignore everything except what's needed for the static site
-/*
-!index.html
-!build.sh
-!vercel.json
-!.vercelignore
