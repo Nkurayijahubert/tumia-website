@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -5,11 +6,55 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import StaticHome from "@/pages/StaticHome";
+
+// Function to check if the API is available
+const checkApiAvailability = async (): Promise<boolean> => {
+  try {
+    const response = await fetch("/api/health", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      // Short timeout to avoid hanging the application
+      signal: AbortSignal.timeout(3000),
+    });
+    return response.ok;
+  } catch (error) {
+    console.warn("API health check failed, using static site mode:", error);
+    return false;
+  }
+};
 
 function Router() {
+  // Default to static mode for safety, will be updated after API check
+  const [useStaticMode, setUseStaticMode] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  
+  useEffect(() => {
+    // Check if we're in a static environment (GitHub Pages)
+    if (window.location.hostname.includes("github.io") || 
+        import.meta.env.VITE_FORCE_STATIC_MODE === "true") {
+      setUseStaticMode(true);
+      setIsLoading(false);
+      return;
+    }
+    
+    // Check API availability
+    checkApiAvailability().then(isAvailable => {
+      setUseStaticMode(!isAvailable);
+      setIsLoading(false);
+    });
+  }, []);
+  
+  if (isLoading) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+  
+  // Use the appropriate Home component based on API availability
+  const HomeComponent = useStaticMode ? StaticHome : Home;
+  
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={HomeComponent} />
       <Route component={NotFound} />
     </Switch>
   );

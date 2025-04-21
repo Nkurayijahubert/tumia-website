@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
 
-// For GitHub Pages deployment with FormSpree
-// The FormSpree endpoint can be configured via environment variable or use the default
-const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "YOUR_FORMSPREE_FORM_ID";
+// For static deployment with FormSpree
+// The FormSpree endpoint can be configured via environment variable or use default value
+// Replace 'xknpdqwz' with your actual FormSpree form ID when deploying
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "xknpdqwz";
 const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
 
 export default function StaticWaitlistSection() {
