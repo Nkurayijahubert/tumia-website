@@ -58,6 +58,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } catch (error: any) {
         // Handle duplicate email
         if (error.message === "Email already registered") {
+          // Even though this is a duplicate, still try to add to Google Sheets for testing
+          try {
+            // Add to Google Sheets anyway (just for testing)
+            await setupGoogleSheet();
+            const added = await addToGoogleSheet(validatedData);
+            if (added) {
+              console.log("Duplicate email, but still added to Google Sheet for testing");
+            }
+          } catch (sheetError) {
+            console.error("Error adding duplicate to Google Sheet:", sheetError);
+          }
+          
           return res.status(409).json({ 
             success: false, 
             message: "This email is already registered on our waitlist"
