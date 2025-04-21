@@ -1,4 +1,6 @@
 import { users, type User, type InsertUser, waitlistEntries, type WaitlistEntry, type InsertWaitlistEntry } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   getUser(id: number): Promise<User | undefined>;
@@ -10,58 +12,49 @@ export interface IStorage {
   getWaitlistEntryByEmail(email: string): Promise<WaitlistEntry | undefined>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<number, User>;
-  private waitlist: Map<number, WaitlistEntry>;
-  currentUserId: number;
-  currentWaitlistId: number;
-
-  constructor() {
-    this.users = new Map();
-    this.waitlist = new Map();
-    this.currentUserId = 1;
-    this.currentWaitlistId = 1;
-  }
-
+export class DatabaseStorage implements IStorage {
   async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
   }
 
   async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
   }
 
   async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentUserId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
     return user;
   }
 
   async addToWaitlist(entry: InsertWaitlistEntry): Promise<WaitlistEntry> {
-    // Check if email already exists
-    const existingEntry = await this.getWaitlistEntryByEmail(entry.email);
-    if (existingEntry) {
-      throw new Error("Email already registered");
+    try {
+      const [waitlistEntry] = await db
+        .insert(waitlistEntries)
+        .values(entry)
+        .returning();
+      return waitlistEntry;
+    } catch (error: any) {
+      // Handle unique constraint violations (duplicate email)
+      if (error.code === '23505') { // PostgreSQL unique constraint violation code
+        throw new Error("Email already registered");
+      }
+      throw error;
     }
-    
-    const id = this.currentWaitlistId++;
-    const waitlistEntry: WaitlistEntry = { ...entry, id };
-    this.waitlist.set(id, waitlistEntry);
-    return waitlistEntry;
   }
 
   async getWaitlistEntries(): Promise<WaitlistEntry[]> {
-    return Array.from(this.waitlist.values());
+    return await db.select().from(waitlistEntries);
   }
 
   async getWaitlistEntryByEmail(email: string): Promise<WaitlistEntry | undefined> {
-    return Array.from(this.waitlist.values()).find(
-      (entry) => entry.email === email,
-    );
+    const [entry] = await db.select().from(waitlistEntries).where(eq(waitlistEntries.email, email));
+    return entry || undefined;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
