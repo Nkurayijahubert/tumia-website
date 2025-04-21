@@ -1,92 +1,65 @@
-# Vercel Environment Setup for Tumia
+# Vercel Environment Setup for Tumia with Google Sheets Integration
 
-This guide explains how to set up the required environment variables for deploying the Tumia landing page to Vercel.
+This guide explains how to set up the required environment variables for deploying the Tumia landing page to Vercel with Google Sheets integration for waitlist submissions.
 
-## Required Environment Variables
+## Required Environment Variables for Google Sheets Integration
 
-The website requires the following environment variables to function properly:
+### 1. GOOGLE_SHEET_ID
 
-### 1. DATABASE_URL (Required for dynamic waitlist)
+This is the ID of your Google Sheet where waitlist entries will be stored.
 
-This is the connection string for your PostgreSQL database. If not provided, the site will fall back to a static mode using FormSpree for form submissions.
-
-Example format:
+For Tumia, the Google Sheet ID is:
 ```
-postgresql://username:password@host:port/database
+1r40aCV0CEeJZGXn815a71YGRi5GLWCYE2Uh9o1gMsqQ
 ```
 
-### 2. GOOGLE_SHEET_ID (For Google Sheets integration)
+This ID is already configured in the vercel.json file, but you can also set it as an environment variable in Vercel.
 
-This is the ID of your Google Sheet where waitlist entries will be stored. You can find this ID in the URL of your Google Sheet:
+### 2. GOOGLE_SERVICE_ACCOUNT_KEY
+
+This is the service account key for Google Sheets API access. The service account for Tumia is:
 ```
-https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit
+waiting-list@tumia-457511.iam.gserviceaccount.com
 ```
 
-### 3. GOOGLE_SERVICE_ACCOUNT_KEY (For Google Sheets integration)
-
-This is a base64-encoded JSON key for a Google Service Account that has access to your Google Sheet. The key should be created with the Google Sheets API enabled.
-
-Steps to create and encode a service account key:
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
-3. Enable the Google Sheets API
-4. Create a service account
-5. Create a JSON key for the service account
-6. Encode the JSON key as base64:
-   ```
-   cat your-service-account-key.json | base64
-   ```
-7. Share your Google Sheet with the service account email (it looks like: `service-account-name@project-id.iam.gserviceaccount.com`)
-
-### 4. VITE_FORMSPREE_FORM_ID (For static mode only)
-
-If you are using the static mode (without a database), you need to set up a FormSpree account and provide your form ID. This is used for the waitlist form submissions in static mode.
-
-### 5. VITE_FORCE_STATIC_MODE (Optional)
-
-Set this to "true" if you want to force the site to use the static version even if a database connection is available. This is useful for testing or when you want to use FormSpree instead of your database.
+The key needs to be provided as an environment secret in Vercel, as it contains sensitive credentials.
 
 ## Setting up Environment Variables in Vercel
 
-1. Go to your project dashboard in Vercel
+1. Go to your project dashboard in Vercel after connecting your GitHub repository
 2. Navigate to the "Settings" tab
 3. Click on "Environment Variables" in the sidebar
-4. Add each environment variable with its corresponding value
+4. Add the following environment variables:
+   - `GOOGLE_SHEET_ID`: `1r40aCV0CEeJZGXn815a71YGRi5GLWCYE2Uh9o1gMsqQ`
+   - `GOOGLE_SERVICE_ACCOUNT_KEY`: [Your service account key JSON]
 
-## Creating a Database (Recommended: Neon)
+## Optional Database Integration
+
+If you also want to store waitlist entries in a database, you can set up a PostgreSQL database:
 
 1. Sign up for a free account at [Neon](https://neon.tech/)
 2. Create a new project
 3. Get your connection string from the dashboard
 4. Add it as the `DATABASE_URL` environment variable in Vercel
 
-## Setting Up Google Sheets Integration
+## Deployment Process
 
-1. Create a Google Sheet for storing waitlist entries
-2. Set up a Google Cloud project and enable the Google Sheets API
-3. Create a service account and download the JSON key
-4. Share your Google Sheet with the service account email
-5. Encode the JSON key as base64 and add it as the `GOOGLE_SERVICE_ACCOUNT_KEY` environment variable
-6. Add your Google Sheet ID as the `GOOGLE_SHEET_ID` environment variable
+1. Connect your GitHub repository to Vercel
+2. Set up the environment variables as described above
+3. Deploy your project
+4. Vercel will automatically build and deploy your site with the Google Sheets integration
 
-### Alternative Manual Export
+## Verifying the Integration
 
-If you encounter issues with the Google Sheets integration, you can always export the waitlist entries manually:
+After deployment, you can verify that the Google Sheets integration is working by:
 
-1. Visit `/api/waitlist/export` on your deployed site
-2. This will download a CSV file with all waitlist entries
-3. Import this CSV file into Google Sheets
-4. This endpoint is protected by default and will only work in production with proper authorization
-
-## Setting Up FormSpree (for Static Mode)
-
-1. Sign up for a [FormSpree account](https://formspree.io/)
-2. Create a new form
-3. Get your form ID (it's the code in the form endpoint URL: `https://formspree.io/f/YOUR_FORM_ID`)
-4. Add it as the `VITE_FORMSPREE_FORM_ID` environment variable in Vercel
+1. Submitting a test entry through the waitlist form
+2. Checking your Google Sheet to confirm the entry was added
+3. You can also check the Vercel function logs for success messages
 
 ## Troubleshooting
 
-- If you see database connection errors, check that your `DATABASE_URL` is correct and that your database is accessible from Vercel.
-- If the site loads but form submissions fail, check that either your database connection is working or your Google Sheets/FormSpree configuration is correct.
-- If entries aren't being added to your Google Sheet, verify that your service account has edit access to the sheet and the key is correctly encoded.
+- If waitlist entries aren't being added to your Google Sheet, verify that your service account has edit access to the sheet.
+- Check the Vercel function logs for any errors related to Google Sheets authentication.
+- Ensure the GOOGLE_SERVICE_ACCOUNT_KEY is properly formatted and includes all necessary credentials.
+- Make sure the Google Sheet exists and is accessible to the service account.

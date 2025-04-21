@@ -12,5 +12,8 @@
   ],
   "env": {
     "VITE_FORCE_STATIC_MODE": "true"
+  },
+  "buildEnvironment": {
+    "GOOGLE_SHEET_ID": "1r40aCV0CEeJZGXn815a71YGRi5GLWCYE2Uh9o1gMsqQ"
   }
 }
