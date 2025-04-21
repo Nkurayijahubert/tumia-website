@@ -106,10 +106,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const date = new Date(entry.createdAt).toISOString();
         
         // Escape any commas in the fields
-        const name = entry.name.includes(',') ? `"${entry.name}"` : entry.name;
-        const email = entry.email.includes(',') ? `"${entry.email}"` : entry.email;
-        const company = entry.company.includes(',') ? `"${entry.company}"` : entry.company;
-        const role = entry.role.includes(',') ? `"${entry.role}"` : entry.role;
+        const name = entry.name ? (entry.name.includes(',') ? `"${entry.name}"` : entry.name) : '';
+        const email = entry.email ? (entry.email.includes(',') ? `"${entry.email}"` : entry.email) : '';
+        const company = entry.company ? (entry.company.includes(',') ? `"${entry.company}"` : entry.company) : '';
+        const role = entry.role ? (entry.role.includes(',') ? `"${entry.role}"` : entry.role) : '';
         
         csv += `${name},${email},${company},${role},${date}\n`;
       });

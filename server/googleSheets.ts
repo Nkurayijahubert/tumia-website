@@ -143,7 +143,7 @@ export const setupGoogleSheet = async (): Promise<boolean> => {
     // First, check if the headers already exist
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Waitlist!A1:E1',
+      range: 'Sheet1!A1:E1',
     });
     
     const rows = response.data.values;
@@ -154,7 +154,7 @@ export const setupGoogleSheet = async (): Promise<boolean> => {
       
       await sheets.spreadsheets.values.update({
         spreadsheetId: process.env.GOOGLE_SHEET_ID,
-        range: 'Waitlist!A1:E1',
+        range: 'Sheet1!A1:E1',
         valueInputOption: 'RAW',
         requestBody: {
           values: headers,
