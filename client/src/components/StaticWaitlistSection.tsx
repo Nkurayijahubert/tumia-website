@@ -153,7 +153,7 @@ export default function StaticWaitlistSection() {
                 <input 
                   type="hidden" 
                   name="_next" 
-                  value={window.location.href} 
+                  value=""  // Empty string means return to same page
                 />
                 
                 <div className="pt-2">
