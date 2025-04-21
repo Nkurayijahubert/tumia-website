@@ -3,6 +3,8 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertWaitlistEntrySchema } from "@shared/schema";
 import { addToGoogleSheet, setupGoogleSheet } from "./googleSheets";
+import { registerHealthDebugRoute } from "./api-health-debug";
+import { pool } from "./db";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API Routes
@@ -144,6 +146,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/health", (req, res) => {
     res.status(200).json({ status: "ok", timestamp: new Date().toISOString() });
   });
+  
+  // Register the enhanced health debug endpoint
+  registerHealthDebugRoute(app, pool);
 
   const httpServer = createServer(app);
   return httpServer;
