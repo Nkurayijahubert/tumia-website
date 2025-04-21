@@ -1,73 +1,69 @@
-# Deploying Tumia to Vercel
+# Vercel Deployment Guide for Tumia Website
 
-This guide will walk you through the process of deploying your Tumia landing page to Vercel.
+This repository is configured for deployment on Vercel as a static site.
 
-## Prerequisites
+## Configuration Overview
 
-1. A [Vercel account](https://vercel.com/signup)
-2. A GitHub, GitLab, or Bitbucket account to host your code
-3. A PostgreSQL database (Recommended: [Neon](https://neon.tech/) for serverless Postgres)
-4. A [SendGrid account](https://sendgrid.com/) for email notifications
+The Tumia website is set up as a pure static site with:
 
-## Step 1: Prepare Your Repository
+- `index.html` - Complete, self-contained website with all styles and scripts embedded
+- `public/index.html` - Same file, placed in the public directory for Vercel's static site hosting
+- `vercel.json` - Configuration file that tells Vercel to treat this as a static site with no build steps
 
-1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
-2. Make sure your repository includes all the files in this project
+## Deployment Instructions
 
-## Step 2: Set Up Your Database
+1. **Connect Vercel to GitHub**
+   - Log in to your Vercel account
+   - Go to "Add New..." > "Project"
+   - Choose to import your GitHub repository
 
-1. Create a PostgreSQL database (we recommend Neon for Vercel deployments)
-2. Get your database connection string, which should look like: `postgresql://username:password@host:port/database`
+2. **Configure Deployment Settings**
+   - Framework Preset: Select "Other" (since this is a static site)
+   - Build Command: Leave empty (our vercel.json sets this to null)
+   - Output Directory: Leave as "public" (default for static sites)
+   - Environment Variables: None needed for static deployment
 
-## Step 3: Set Up SendGrid
+3. **Deploy**
+   - Click "Deploy"
+   - Vercel will deploy your static site without running any build commands
 
-1. Create a SendGrid account if you don't have one
-2. Verify your sender domain or email address
-3. Create an API key for your application
-4. Make sure to verify 'noreply@tumia.app' as a sender, or change the from email in server/email.ts
+## Custom Domain Setup
 
-## Step 4: Deploy to Vercel
+1. **Navigate to Domain Settings**
+   - Go to your project in Vercel
+   - Click "Settings" > "Domains"
 
-1. Log in to your Vercel account
-2. Click "Add New" → "Project"
-3. Import your Git repository
-4. Configure the project with the following settings:
-   - **Framework Preset**: Other
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-   - **Install Command**: `npm install`
-
-5. Set up the following environment variables:
-   - `DATABASE_URL`: Your PostgreSQL connection string
-   - `SENDGRID_API_KEY`: Your SendGrid API key
-
-6. Click "Deploy"
-
-## Step 5: Configure Your Domain (Optional)
-
-1. After deployment, go to your project settings
-2. Navigate to the "Domains" section
-3. Add your custom domain and follow the verification steps
-
-## Step 6: Test Your Deployment
-
-1. After deployment is complete, visit your Vercel URL
-2. Test the waitlist form to ensure it's working properly
-3. Check that emails are being sent to team@tumia.app when someone signs up
+2. **Add Your Domain**
+   - Enter your domain (e.g., tumia.app)
+   - Follow Vercel's instructions to verify domain ownership
+   - Update your DNS records as instructed by Vercel
 
 ## Troubleshooting
 
-If you encounter any issues:
+If deployment fails, check the following:
 
-1. Check the Vercel deployment logs
-2. Ensure your environment variables are set correctly
-3. Make sure your database is accessible from Vercel
-4. Verify that your SendGrid sender email is properly authenticated
+1. **Vercel Configuration**
+   - Ensure vercel.json has the correct format:
+   ```json
+   {
+     "buildCommand": null,
+     "installCommand": null,
+     "framework": null
+   }
+   ```
 
-## Updating Your Deployment
+2. **File Structure**
+   - Confirm index.html exists in the root directory
+   - Confirm index.html also exists in the public directory
 
-Any changes pushed to your main branch will automatically trigger a new deployment.
+3. **Large Files**
+   - Ensure no individual file exceeds Vercel's size limits
+   - All images are externally hosted on GitHub, so this shouldn't be an issue
 
----
+4. **Build Errors**
+   - If you see build errors, it might mean Vercel is trying to run a build process
+   - Double-check that vercel.json is being properly recognized
 
-For additional support, please contact the development team.
+## Support
+
+If you're still encountering issues, Vercel's support documentation is available at: https://vercel.com/docs
