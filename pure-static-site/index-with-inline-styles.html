@@ -658,6 +658,7 @@
   </footer>
 
   <script>
+    // Handle URL parameters for form success/error messages
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success')) {
       document.getElementById('form-success').classList.remove('hidden');
@@ -673,6 +674,126 @@
         document.getElementById('form-error').scrollIntoView({behavior: 'smooth'});
       }, 500);
     }
+
+    // Smooth scrolling for anchor links
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            targetElement.scrollIntoView({
+              behavior: 'smooth'
+            });
+            
+            // Update URL without page reload
+            window.history.pushState(null, null, targetId);
+          }
+        });
+      });
+    });
+
+    // Mobile menu toggle (for smaller screens)
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add mobile menu button if it doesn't exist
+      const header = document.querySelector('header .container');
+      if (!document.querySelector('.mobile-menu-btn')) {
+        const mobileMenuBtn = document.createElement('button');
+        mobileMenuBtn.className = 'mobile-menu-btn md:hidden';
+        mobileMenuBtn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        `;
+        mobileMenuBtn.style.display = 'none';
+        
+        // Create mobile menu
+        const mobileMenu = document.createElement('div');
+        mobileMenu.className = 'mobile-menu hidden fixed inset-0 bg-white z-50 flex flex-col items-center justify-center';
+        mobileMenu.innerHTML = `
+          <button class="absolute top-4 right-4 close-menu-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+          <nav class="flex flex-col space-y-6 text-center">
+            <a href="#features" class="text-xl font-medium text-neutral hover:text-primary transition-colors">Features</a>
+            <a href="#benefits" class="text-xl font-medium text-neutral hover:text-primary transition-colors">Benefits</a>
+            <a href="#how-it-works" class="text-xl font-medium text-neutral hover:text-primary transition-colors">How It Works</a>
+            <a href="#waitlist" class="text-xl font-medium text-neutral hover:text-primary transition-colors">Join Waitlist</a>
+          </nav>
+        `;
+        
+        document.body.appendChild(mobileMenu);
+        
+        // Toggle mobile menu
+        mobileMenuBtn.addEventListener('click', function() {
+          mobileMenu.classList.remove('hidden');
+        });
+        
+        // Close mobile menu
+        mobileMenu.querySelector('.close-menu-btn').addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+        });
+        
+        // Close menu when clicking on links
+        mobileMenu.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+          });
+        });
+      }
+    });
+
+    // Form validation and enhanced submission
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          // Form is handled by FormSpree, so we don't prevent default
+          // But we can add some visual feedback
+          const submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+            setTimeout(() => {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Join Waitlist';
+            }, 3000); // Reset after 3 seconds if redirect doesn't happen
+          }
+        });
+      }
+    });
+    
+    // Animations for better user experience
+    document.addEventListener('DOMContentLoaded', function() {
+      // Detect when elements come into view
+      const observeElements = document.querySelectorAll('.fade-in');
+      
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        }, { threshold: 0.1 });
+        
+        observeElements.forEach(el => {
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(20px)';
+          el.style.transition = 'opacity 0.8s ease-in-out, transform 0.8s ease-in-out';
+          observer.observe(el);
+        });
+      }
+    });
   </script>
 </body>
 </html>
