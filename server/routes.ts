@@ -2,7 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertWaitlistEntrySchema } from "@shared/schema";
-import { sendWaitlistNotification } from "./email";
+import { addToGoogleSheet, setupGoogleSheet } from "./googleSheets";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API Routes
@@ -15,13 +15,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Add to waitlist
         const entry = await storage.addToWaitlist(validatedData);
         
-        // Send email notification
+        // Add to Google Sheets
         try {
-          await sendWaitlistNotification(validatedData);
-          console.log("Waitlist notification email sent successfully");
-        } catch (emailError) {
-          // Log the error but don't fail the request if email fails
-          console.error("Failed to send waitlist notification email:", emailError);
+          // Try to set up the sheet with headers if it doesn't exist
+          await setupGoogleSheet();
+          
+          // Add the entry to the Google Sheet
+          const added = await addToGoogleSheet(validatedData);
+          if (added) {
+            console.log("Waitlist entry added to Google Sheet successfully");
+          } else {
+            console.warn("Waitlist entry not added to Google Sheet - check configuration");
+          }
+        } catch (sheetError) {
+          // Log the error but don't fail the request if Google Sheets operation fails
+          console.error("Failed to add waitlist entry to Google Sheet:", sheetError);
         }
         
         res.status(201).json({ 

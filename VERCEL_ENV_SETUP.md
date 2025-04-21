@@ -15,15 +15,34 @@ Example format:
 postgresql://username:password@host:port/database
 ```
 
-### 2. SENDGRID_API_KEY (Required for email notifications)
+### 2. GOOGLE_SHEET_ID (For Google Sheets integration)
 
-This is your SendGrid API key for sending email notifications when someone joins the waitlist. If not provided, email notifications will be disabled but the site will continue to function.
+This is the ID of your Google Sheet where waitlist entries will be stored. You can find this ID in the URL of your Google Sheet:
+```
+https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit
+```
 
-### 3. VITE_FORMSPREE_FORM_ID (For static mode only)
+### 3. GOOGLE_SERVICE_ACCOUNT_KEY (For Google Sheets integration)
+
+This is a base64-encoded JSON key for a Google Service Account that has access to your Google Sheet. The key should be created with the Google Sheets API enabled.
+
+Steps to create and encode a service account key:
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Google Sheets API
+4. Create a service account
+5. Create a JSON key for the service account
+6. Encode the JSON key as base64:
+   ```
+   cat your-service-account-key.json | base64
+   ```
+7. Share your Google Sheet with the service account email (it looks like: `service-account-name@project-id.iam.gserviceaccount.com`)
+
+### 4. VITE_FORMSPREE_FORM_ID (For static mode only)
 
 If you are using the static mode (without a database), you need to set up a FormSpree account and provide your form ID. This is used for the waitlist form submissions in static mode.
 
-### 4. VITE_FORCE_STATIC_MODE (Optional)
+### 5. VITE_FORCE_STATIC_MODE (Optional)
 
 Set this to "true" if you want to force the site to use the static version even if a database connection is available. This is useful for testing or when you want to use FormSpree instead of your database.
 
@@ -41,12 +60,14 @@ Set this to "true" if you want to force the site to use the static version even 
 3. Get your connection string from the dashboard
 4. Add it as the `DATABASE_URL` environment variable in Vercel
 
-## Setting Up SendGrid
+## Setting Up Google Sheets Integration
 
-1. Sign up for a [SendGrid account](https://sendgrid.com/)
-2. Create an API key with "Mail Send" permissions
-3. Verify your sender domain or email address (noreply@tumia.app)
-4. Add the API key as the `SENDGRID_API_KEY` environment variable in Vercel
+1. Create a Google Sheet for storing waitlist entries
+2. Set up a Google Cloud project and enable the Google Sheets API
+3. Create a service account and download the JSON key
+4. Share your Google Sheet with the service account email
+5. Encode the JSON key as base64 and add it as the `GOOGLE_SERVICE_ACCOUNT_KEY` environment variable
+6. Add your Google Sheet ID as the `GOOGLE_SHEET_ID` environment variable
 
 ## Setting Up FormSpree (for Static Mode)
 
@@ -58,5 +79,5 @@ Set this to "true" if you want to force the site to use the static version even 
 ## Troubleshooting
 
 - If you see database connection errors, check that your `DATABASE_URL` is correct and that your database is accessible from Vercel.
-- If the site loads but form submissions fail, check that either your database connection is working or your FormSpree form ID is correct.
-- If the site falls back to static mode unexpectedly, it might mean the database connection is failing.
+- If the site loads but form submissions fail, check that either your database connection is working or your Google Sheets/FormSpree configuration is correct.
+- If entries aren't being added to your Google Sheet, verify that your service account has edit access to the sheet and the key is correctly encoded.
