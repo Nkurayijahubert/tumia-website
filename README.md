@@ -1,57 +1,60 @@
-# Tumia - Financial Copilot for Africa's Startup Ecosystem
+# Tumia - The Financial Copilot for Africa's Startup Ecosystem
 
-This project is a pre-launch SaaS landing page for Tumia, designed to capture potential customer interest through an engaging waitlist signup process.
+A static landing page for Tumia designed to capture potential customer interest through a clean and straightforward waitlist signup experience.
 
-## Key Technologies
+## Overview
 
-- React frontend
-- PostgreSQL database
-- Drizzle ORM
-- TypeScript
-- Tailwind CSS for responsive design
+This repository contains a pure static website for Tumia with:
+- Modern, responsive design
+- Waitlist form powered by FormSpree
+- Custom branding and styling
+- Professional animations and layout
 
-## Deployment Instructions for Vercel
+## Tech Stack
 
-### Prerequisites
+- Pure HTML/CSS with minimal JavaScript
+- TailwindCSS (via CDN)
+- FormSpree for form processing
+- Vercel for hosting
 
-1. A [Vercel account](https://vercel.com/signup)
-2. A PostgreSQL database (we recommend using [Neon](https://neon.tech/) for Vercel deployments)
-3. SendGrid account for email notifications
+## Deployment on Vercel
 
-### Steps to Deploy
+This repository is configured for immediate deployment on Vercel:
 
-1. **Clone and push this repository to GitHub**
+1. **Import this repository to Vercel**
+   - Go to [Vercel](https://vercel.com/new)
+   - Select "Import Git Repository"
+   - Choose this repository
+   - Select "Deploy"
 
-2. **Connect repository to Vercel**
-   - Go to https://vercel.com/new
-   - Import your GitHub repository
-   - Configure the following environment variables:
-     - `DATABASE_URL`: Your PostgreSQL connection string
-     - `SENDGRID_API_KEY`: Your SendGrid API key
+2. **Configuration**
+   - The `vercel.json` file is already configured with the correct settings
+   - No build step is required as this is a static site
+   - All assets are loaded from GitHub URLs
 
-3. **Deploy**
-   - Click "Deploy" and Vercel will handle the build and deployment process
+3. **Custom Domain Setup**
+   - After deployment, go to your project settings in Vercel
+   - Add your custom domain (e.g., tumia.app)
+   - Follow Vercel's instructions to configure DNS
 
-### Post-Deployment Steps
+## Form Submissions
 
-1. **Set up custom domain (optional)**
-   - Go to your project settings in Vercel
-   - Navigate to the "Domains" section
-   - Add your custom domain and follow the verification steps
-
-2. **Configure Vercel-Neon Integration (recommended)**
-   - If using Neon, set up the Vercel-Neon integration for better performance
+The waitlist form on the website uses FormSpree to handle submissions:
+- All submissions are sent to the email associated with the FormSpree account
+- Success and error handling is built into the page
+- No server-side code is required
 
 ## Local Development
 
-1. Clone the repository
-2. Install dependencies: `npm install`
-3. Create a `.env` file with your environment variables
-4. Run the development server: `npm run dev`
+To run the site locally:
+1. Clone this repository
+2. Open `index.html` in your browser
+3. For form testing, use the FormSpree test mode
 
-## Project Structure
+## Key Files
 
-- `/client`: Frontend React application
-- `/server`: Backend Express API
-- `/shared`: Shared code between frontend and backend
-- `/api`: Vercel-specific API endpoints
+- `index.html` - The main website file with embedded styles
+- `public/index.html` - Same file for Vercel static hosting
+- `vercel.json` - Configuration for Vercel deployment
+
+For more detailed deployment instructions, see [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
