@@ -11,16 +11,17 @@ export default function Footer() {
               <img src={logoImage} alt="Tumia" className="h-10 filter brightness-0 invert" />
             </a>
             <p className="text-white/80 mb-6 max-w-md">
-              Financial empowerment for Africa's startup ecosystem. Building strong financial habits, achieving growth goals, and becoming scalable, investment-ready businesses.
+              Prove Impact, Unlock Growth - The Financial Copilot for Africa's Startup Ecosystem.
+              Build strong financial habits, achieve your growth goals, and become a scalable, investment-ready business.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="https://x.com/usetumia" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <Twitter className="text-white" size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="https://www.linkedin.com/company/106854509/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <Linkedin className="text-white" size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
+              <a href="https://www.instagram.com/usetumia/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
                 <Instagram className="text-white" size={18} />
               </a>
             </div>
