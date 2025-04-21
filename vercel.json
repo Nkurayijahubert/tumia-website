@@ -1,9 +1,10 @@
 {
-  "buildCommand": null,
-  "installCommand": null,
-  "framework": null,
-  "outputDirectory": "public",
-  "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  "version": 2,
+  "cleanUrls": true,
+  "public": true,
+  "github": {
+    "silent": true
+  },
+  "buildCommand": "echo 'Static site deployment - no build step needed'",
+  "outputDirectory": "public"
 }
