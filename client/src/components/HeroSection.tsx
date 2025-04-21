@@ -43,12 +43,60 @@ export default function HeroSection() {
           >
             <div className="absolute -top-10 -left-10 w-40 h-40 bg-[#F9C846]/20 rounded-full filter blur-3xl opacity-70"></div>
             <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full filter blur-3xl opacity-70"></div>
-            <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-              <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" 
-                alt="Tumia dashboard showing financial analytics" 
+            <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 p-8">
+              <svg
+                viewBox="0 0 600 400"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
                 className="w-full h-auto"
-              />
+              >
+                {/* Background elements */}
+                <rect width="600" height="400" fill="#F6F1ED" opacity="0.3" />
+                <circle cx="500" cy="100" r="50" fill="#F9C846" opacity="0.2" />
+                <circle cx="100" cy="300" r="70" fill="#005B68" opacity="0.1" />
+                
+                {/* Dashboard header */}
+                <rect x="50" y="40" width="500" height="60" rx="10" fill="#005B68" />
+                <text x="80" y="75" fontFamily="Arial" fontSize="18" fontWeight="bold" fill="white">Tumia Financial Dashboard</text>
+                <circle cx="520" cy="70" r="15" fill="white" opacity="0.8" />
+                
+                {/* Main dashboard content */}
+                <rect x="50" y="120" width="320" height="240" rx="10" fill="white" stroke="#E0E0E0" />
+                <text x="70" y="150" fontFamily="Arial" fontSize="16" fontWeight="bold" fill="#2A2A2A">Revenue Growth</text>
+                
+                {/* Chart */}
+                <path d="M70 300 L70 200 L110 260 L150 230 L190 250 L230 180 L270 210 L310 170" 
+                      stroke="#005B68" strokeWidth="3" fill="none" />
+                <path d="M70 300 L310 300" stroke="#E0E0E0" strokeWidth="1" />
+                <path d="M70 300 L70 170" stroke="#E0E0E0" strokeWidth="1" />
+                
+                {/* Chart points */}
+                <circle cx="70" cy="200" r="4" fill="#005B68" />
+                <circle cx="110" cy="260" r="4" fill="#005B68" />
+                <circle cx="150" cy="230" r="4" fill="#005B68" />
+                <circle cx="190" cy="250" r="4" fill="#005B68" />
+                <circle cx="230" cy="180" r="4" fill="#005B68" />
+                <circle cx="270" cy="210" r="4" fill="#005B68" />
+                <circle cx="310" cy="170" r="4" fill="#005B68" />
+                
+                {/* AI insights panel */}
+                <rect x="390" y="120" width="160" height="240" rx="10" fill="white" stroke="#E0E0E0" />
+                <text x="410" y="150" fontFamily="Arial" fontSize="14" fontWeight="bold" fill="#2A2A2A">AI Insights</text>
+                
+                {/* AI recommendation items */}
+                <rect x="410" y="170" width="120" height="30" rx="5" fill="#F6F1ED" />
+                <text x="420" y="190" fontFamily="Arial" fontSize="10" fill="#2A2A2A">Optimize cash flow</text>
+                
+                <rect x="410" y="210" width="120" height="30" rx="5" fill="#F6F1ED" />
+                <text x="420" y="230" fontFamily="Arial" fontSize="10" fill="#2A2A2A">Reduce expenses</text>
+                
+                <rect x="410" y="250" width="120" height="30" rx="5" fill="#F6F1ED" />
+                <text x="420" y="270" fontFamily="Arial" fontSize="10" fill="#2A2A2A">Investment opportunity</text>
+                
+                {/* Sparklines */}
+                <path d="M410 320 L430 310 L450 315 L470 300 L490 320 L510 305 L530 310" 
+                      stroke="#F9C846" strokeWidth="2" fill="none" />
+              </svg>
             </div>
           </motion.div>
         </div>
