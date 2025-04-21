@@ -14,9 +14,8 @@ import { motion } from "framer-motion";
 
 // For static deployment with FormSpree
 // The FormSpree endpoint can be configured via environment variable or use default value
-// This will be replaced with your actual FormSpree form ID during GitHub deployment
-// You need to set the FORMSPREE_FORM_ID secret in your GitHub repository
-const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "YOUR_FORMSPREE_FORM_ID";
+// If no FormSpree ID is available, we'll use a direct mailto link as fallback
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "xeqgvejb";
 const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_FORM_ID}`;
 
 export default function StaticWaitlistSection() {
