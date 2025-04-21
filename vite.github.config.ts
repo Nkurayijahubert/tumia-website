@@ -10,6 +10,9 @@ export default defineConfig({
   plugins: [
     react(),
   ],
+  define: {
+    'import.meta.env.VITE_STATIC_MODE': JSON.stringify('true'),
+  },
   base: `/${repoName}/`, // Required for GitHub Pages
   resolve: {
     alias: {

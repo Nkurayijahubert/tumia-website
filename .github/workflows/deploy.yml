@@ -33,6 +33,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
       
+      - name: Configure FormSpree ID (if provided)
+        run: |
+          if [ ! -z "${{ secrets.FORMSPREE_FORM_ID }}" ]; then
+            sed -i "s/YOUR_FORMSPREE_FORM_ID/${{ secrets.FORMSPREE_FORM_ID }}/g" client/src/components/StaticWaitlistSection.tsx
+          fi
+      
       - name: Build for GitHub Pages
         run: npx vite build --config vite.github.config.ts
       

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import logoImage from "../assets/logo.png";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -15,9 +16,8 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <a href="#" className="text-2xl font-bold">
-              <span className="text-primary">Tum</span>
-              <span className="text-[#F9C846]">ia</span>
+            <a href="#" className="flex items-center">
+              <img src={logoImage} alt="Tumia" className="h-10" />
             </a>
           </div>
           

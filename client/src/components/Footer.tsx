@@ -1,4 +1,5 @@
 import { Twitter, Linkedin, Instagram } from "lucide-react";
+import logoImage from "../assets/logo.png";
 
 export default function Footer() {
   return (
@@ -6,11 +7,11 @@ export default function Footer() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
           <div className="md:col-span-2">
-            <a href="#" className="text-2xl font-bold inline-block mb-6">
-              <span className="text-primary">Tum</span><span className="text-[#F9C846]">ia</span>
+            <a href="#" className="inline-block mb-6">
+              <img src={logoImage} alt="Tumia" className="h-10 filter brightness-0 invert" />
             </a>
             <p className="text-white/80 mb-6 max-w-md">
-              AI-powered financial empowerment for African startups. Building strong financial habits, achieving growth goals, and becoming scalable, investment-ready businesses.
+              Financial empowerment for Africa's startup ecosystem. Building strong financial habits, achieving growth goals, and becoming scalable, investment-ready businesses.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
@@ -50,7 +51,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Tumia. All rights reserved.
           </div>
           <div className="text-white/60">
-            <a href="mailto:info@tumia.io" className="hover:text-white transition-colors">info@tumia.io</a>
+            <a href="mailto:team@tumia.app" className="hover:text-white transition-colors">team@tumia.app</a>
           </div>
         </div>
       </div>

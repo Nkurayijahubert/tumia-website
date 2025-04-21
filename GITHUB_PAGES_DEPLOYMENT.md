@@ -17,15 +17,17 @@ Since GitHub Pages only hosts static content, we'll need to adapt our approach b
    npm run build
    ```
 
-2. **Modify the waitlist form:**
-   Replace the form in `client/src/components/WaitlistSection.tsx` with code that uses a third-party form handler instead of our API endpoint.
-
-   Example with FormSpree:
-   ```jsx
-   <form action="https://formspree.io/f/your-form-id" method="POST" className="space-y-6">
-     {/* Keep the same form fields, but remove the React Hook Form logic */}
-   </form>
-   ```
+2. **Set up FormSpree for the waitlist form:**
+   We've created a static version of the waitlist form in `client/src/components/StaticWaitlistSection.tsx` that uses FormSpree as the form handler.
+   
+   To set up FormSpree:
+   1. Go to [FormSpree.io](https://formspree.io/) and create an account
+   2. Create a new form and get your form ID (it will look like `xrgjaklp`)
+   3. Add the form ID as a repository secret in your GitHub repository:
+      - Go to your repository settings → Secrets and variables → Actions
+      - Add a new repository secret with the name `FORMSPREE_FORM_ID` and your form ID as the value
+   
+   The GitHub Actions workflow will automatically replace the placeholder in the code with your actual FormSpree ID.
 
 3. **Set up GitHub Pages:**
    - Push your code to a GitHub repository
@@ -33,54 +35,14 @@ Since GitHub Pages only hosts static content, we'll need to adapt our approach b
    - Select "GitHub Actions" as the source
    - Choose a static site workflow template
 
-4. **Create GitHub Actions workflow:**
-   Create a file at `.github/workflows/static.yml` with the following content:
+4. **Use the provided GitHub Actions workflow:**
+   We've created a workflow file at `.github/workflows/deploy.yml` that handles the build and deployment process. The workflow includes:
 
-   ```yaml
-   name: Deploy static site to Pages
-
-   on:
-     push:
-       branches: ["main"]
-     workflow_dispatch:
-
-   permissions:
-     contents: read
-     pages: write
-     id-token: write
-
-   concurrency:
-     group: "pages"
-     cancel-in-progress: false
-
-   jobs:
-     deploy:
-       environment:
-         name: github-pages
-         url: ${{ steps.deployment.outputs.page_url }}
-       runs-on: ubuntu-latest
-       steps:
-         - name: Checkout
-           uses: actions/checkout@v3
-         - name: Setup Node
-           uses: actions/setup-node@v3
-           with:
-             node-version: "18"
-             cache: 'npm'
-         - name: Install dependencies
-           run: npm ci
-         - name: Build
-           run: npm run build
-         - name: Setup Pages
-           uses: actions/configure-pages@v3
-         - name: Upload artifact
-           uses: actions/upload-pages-artifact@v2
-           with:
-             path: 'dist'
-         - name: Deploy to GitHub Pages
-           id: deployment
-           uses: actions/deploy-pages@v2
-   ```
+   - **Automatic FormSpree configuration**: Inserts your FormSpree form ID into the static waitlist component
+   - **Custom Vite build configuration**: Uses a special Vite config for GitHub Pages compatibility
+   - **Proper asset paths**: Ensures all assets load correctly on GitHub Pages subdomain
+   
+   The workflow will run automatically when you push to the main branch, or you can trigger it manually from the Actions tab in your repository.
 
 5. **Configure email notifications:**
    Most form services allow you to forward submissions to an email address (team@tumia.app).
