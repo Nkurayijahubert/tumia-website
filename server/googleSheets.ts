@@ -110,7 +110,7 @@ export const addToGoogleSheet = async (entry: WaitlistEntry): Promise<boolean> =
     // Append the data to the specified sheet
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Waitlist!A:E', // Assumes sheet named "Waitlist" with columns for name, email, company, role, date
+      range: 'Sheet1!A:E', // Use the default 'Sheet1' instead of 'Waitlist'
       valueInputOption: 'RAW',
       requestBody: {
         values,
