@@ -1,7 +1,8 @@
-# Ignore everything except public directory and config files
-/*
-!public
-!vercel.json
-!.vercelignore
-!/api
-!static.txt
+# Patterns to ignore when deploying to Vercel
+node_modules
+.git
+.github
+.cache
+.env
+.env.local
+dist

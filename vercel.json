@@ -5,6 +5,10 @@
   "github": {
     "silent": true
   },
-  "buildCommand": "echo 'Static site deployment - no build step needed'",
-  "outputDirectory": "public"
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "dist/public",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/" }
+  ]
 }
