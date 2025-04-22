@@ -16,8 +16,8 @@ cp -r vercel-api/* api/
 echo "Setting up production entry point..."
 cp client/src/main-production.tsx client/src/main.tsx
 
-# Set the static mode environment variable
-export VITE_FORCE_STATIC_MODE=true
+# Don't force static mode, to allow API calls to work
+# export VITE_FORCE_STATIC_MODE=true
 export NODE_ENV=production
 
 # Add a log to indicate what we're building

@@ -27,8 +27,8 @@ export default defineConfig({
       },
     }
   },
-  // Define this so the static app knows to use FormSpree
+  // Allow dynamic API calls in production
   define: {
-    'import.meta.env.VITE_FORCE_STATIC_MODE': JSON.stringify('true'),
+    'import.meta.env.VITE_FORCE_STATIC_MODE': JSON.stringify('false'),
   }
 });
