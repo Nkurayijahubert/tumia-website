@@ -157,7 +157,7 @@ export default function WaitlistSection() {
           
           if (isNetworkError || isCORSError) {
             console.log("Network/CORS error on Vercel deployment, showing success anyway");
-            setFormStatus("success");
+            setFormStatus("error");
             form.reset();
           } else {
             console.log("Unknown error on Vercel, showing error message");
