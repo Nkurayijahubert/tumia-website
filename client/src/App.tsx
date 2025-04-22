@@ -45,30 +45,14 @@ function Router() {
       return;
     }
     
-    // Check if we're on Vercel - attempt to use API but have fallback ready
-    if (window.location.hostname.includes(".vercel.app")) {
-      console.log("Vercel deployment detected, checking API availability...");
+    // Check if we're on Vercel or the main tumia.app domain
+    if (window.location.hostname.includes(".vercel.app") || 
+        window.location.hostname.includes("tumia.app")) {
+      console.log("Production deployment detected (Vercel or tumia.app)");
       
-      // Try API check with a shorter timeout for Vercel
-      try {
-        const response = await fetch("/api/health", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          signal: AbortSignal.timeout(3000), // Shorter timeout
-        });
-        
-        if (response.ok) {
-          console.log("API is available on Vercel, using dynamic mode");
-          setUseStaticMode(false);
-        } else {
-          console.log("API health check failed on Vercel, using static mode");
-          setUseStaticMode(true);
-        }
-      } catch (error) {
-        console.log("API health check error on Vercel, using static mode:", error);
-        setUseStaticMode(true);
-      }
-      
+      // For production sites, we'll prefer dynamic mode
+      console.log("Using dynamic mode for production site");
+      setUseStaticMode(false);
       setIsLoading(false);
       return;
     }
