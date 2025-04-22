@@ -53,13 +53,28 @@ export default function WaitlistSection() {
       
       try {
         // Direct fetch implementation for better error logging
-        if (window.location.hostname.includes(".vercel.app")) {
-          console.log("Vercel deployment detected, making direct fetch for better debugging");
+        // Check if we're on Vercel or a custom domain
+        if (window.location.hostname.includes(".vercel.app") || 
+            window.location.hostname.includes("tumia.app")) {
+          console.log("Production deployment detected, making direct fetch to API");
           
-          const response = await fetch("/api/waitlist", {
+          // Determine the appropriate API URL
+          let apiUrl = "/api/waitlist";
+          
+          // Optional: Try direct call to www.tumia.app if we're on a non-www domain or Vercel preview
+          if (window.location.hostname.includes(".vercel.app") || 
+              !window.location.hostname.includes("www.")) {
+            console.log("Trying direct API call to www.tumia.app");
+            apiUrl = "https://www.tumia.app/api/waitlist";
+          }
+          
+          console.log("Calling API URL:", apiUrl);
+          const response = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
+            // Add credentials to ensure cookies are sent
+            credentials: "include"
           });
           
           console.log("Vercel API Response Status:", response.status, response.statusText);
