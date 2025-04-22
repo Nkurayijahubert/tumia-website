@@ -27,8 +27,6 @@ export default defineConfig({
       },
     }
   },
-  // Allow dynamic API calls in production
-  define: {
-    'import.meta.env.VITE_FORCE_STATIC_MODE': JSON.stringify('false'),
-  }
+  // No longer using static mode flag - dynamic API calls in production
+  define: {}
 });

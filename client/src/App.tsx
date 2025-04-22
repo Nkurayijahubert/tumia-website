@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -6,81 +5,15 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import StaticHome from "@/pages/StaticHome";
 
-// Function to check if the API is available
-const checkApiAvailability = async (): Promise<boolean> => {
-  try {
-    const response = await fetch("/api/health", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-      // Short timeout to avoid hanging the application
-      signal: AbortSignal.timeout(5000),
-    });
-    if (response.ok) {
-      console.log("API health check successful, using dynamic mode");
-      return true;
-    }
-    console.warn("API health check failed (status not OK), using static site mode");
-    return false;
-  } catch (error) {
-    console.warn("API health check failed with error, using static site mode:", error);
-    return false;
-  }
-};
-
+/**
+ * Always use the dynamic Home component which has proper
+ * API integration for waitlist submissions
+ */
 function Router() {
-  // Default to static mode for safety, will be updated after API check
-  const [useStaticMode, setUseStaticMode] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  
-  useEffect(() => {
-    const checkAvailability = async () => {
-    // Check if we're in a static environment (GitHub Pages)
-    if (window.location.hostname.includes("github.io") || 
-        import.meta.env.VITE_FORCE_STATIC_MODE === "true") {
-      console.log("Static mode enforced by environment or hostname");
-      setUseStaticMode(true);
-      setIsLoading(false);
-      return;
-    }
-    
-    // Check if we're on Vercel or the main tumia.app domain
-    if (window.location.hostname.includes(".vercel.app") || 
-        window.location.hostname.includes("tumia.app")) {
-      console.log("Production deployment detected (Vercel or tumia.app)");
-      
-      // For production sites, we'll prefer dynamic mode
-      console.log("Using dynamic mode for production site");
-      setUseStaticMode(false);
-      setIsLoading(false);
-      return;
-    }
-    
-    // For other environments, check API availability
-    checkApiAvailability().then(isAvailable => {
-      setUseStaticMode(!isAvailable);
-      setIsLoading(false);
-    });
-    };
-    
-    // Execute the async function
-    checkAvailability();
-  }, []);
-  
-  if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
-  }
-  
-  // Use the appropriate Home component based on API availability
-  const HomeComponent = Home;
-  
-  // Debug in console which mode we're using
-  console.log("Static mode:", useStaticMode ? "enabled" : "disabled");
-  
   return (
     <Switch>
-      <Route path="/" component={HomeComponent} />
+      <Route path="/" component={Home} />
       <Route component={NotFound} />
     </Switch>
   );
