@@ -15,11 +15,16 @@ const checkApiAvailability = async (): Promise<boolean> => {
       method: "GET",
       headers: { "Content-Type": "application/json" },
       // Short timeout to avoid hanging the application
-      signal: AbortSignal.timeout(3000),
+      signal: AbortSignal.timeout(5000),
     });
-    return response.ok;
+    if (response.ok) {
+      console.log("API health check successful, using dynamic mode");
+      return true;
+    }
+    console.warn("API health check failed (status not OK), using static site mode");
+    return false;
   } catch (error) {
-    console.warn("API health check failed, using static site mode:", error);
+    console.warn("API health check failed with error, using static site mode:", error);
     return false;
   }
 };
