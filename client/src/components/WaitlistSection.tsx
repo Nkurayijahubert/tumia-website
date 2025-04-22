@@ -47,9 +47,64 @@ export default function WaitlistSection() {
   });
 
   const waitlistMutation = useMutation({
-    mutationFn: (data: FormValues) => 
-      apiRequest("POST", "/api/waitlist", data),
+    mutationFn: async (data: FormValues) => {
+      // Log the data being sent for debugging
+      console.log("Sending waitlist data:", data);
+      
+      try {
+        // Direct fetch implementation for better error logging
+        if (window.location.hostname.includes(".vercel.app")) {
+          console.log("Vercel deployment detected, making direct fetch for better debugging");
+          
+          const response = await fetch("/api/waitlist", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          
+          console.log("Vercel API Response Status:", response.status, response.statusText);
+          
+          // Try to read the response body for debugging
+          let responseBody;
+          try {
+            responseBody = await response.text();
+            console.log("Response body:", responseBody);
+            
+            // Try to parse as JSON if possible
+            try {
+              const jsonResponse = JSON.parse(responseBody);
+              console.log("Parsed JSON response:", jsonResponse);
+              
+              if (!response.ok) {
+                throw new Error(`${response.status}: ${jsonResponse.message || responseBody}`);
+              }
+              
+              return jsonResponse;
+            } catch (parseError) {
+              console.log("Not valid JSON response");
+              if (!response.ok) {
+                throw new Error(`${response.status}: ${responseBody}`);
+              }
+              return responseBody;
+            }
+          } catch (bodyError) {
+            console.log("Could not read response body:", bodyError);
+            if (!response.ok) {
+              throw new Error(`${response.status}: ${response.statusText}`);
+            }
+            return { success: true };
+          }
+        } else {
+          // Use the standard apiRequest for non-Vercel environments
+          return await apiRequest("POST", "/api/waitlist", data);
+        }
+      } catch (error) {
+        console.error("Caught error in mutationFn:", error);
+        throw error;
+      }
+    },
     onSuccess: () => {
+      console.log("Waitlist submission successful");
       setFormStatus("success");
       form.reset();
       // Reset form status after 8 seconds
@@ -57,32 +112,44 @@ export default function WaitlistSection() {
     },
     onError: (error: any) => {
       console.error('Waitlist submission error:', error);
+      console.log('Error instanceof Error:', error instanceof Error);
+      console.log('Error type:', typeof error);
+      console.log('Error properties:', Object.keys(error).join(', '));
+      console.log('Error message:', error.message);
+      console.log('Error stack:', error.stack);
       
       // Check if this is a duplicate email error (409 Conflict)
       if (error.message && error.message.includes("409")) {
+        console.log("Duplicate email detected, showing exists message");
         setFormStatus("exists");
         form.reset();
       } else {
         // Special handling for Vercel deployment issues
         if (window.location.hostname.includes(".vercel.app")) {
           // Common errors on Vercel deployment
-          const isNetworkError = error.message.includes("Failed to fetch") || 
-                                error.name === "TypeError" ||
-                                error.message.includes("NetworkError");
+          const isNetworkError = 
+            (error.message && (
+              error.message.includes("Failed to fetch") || 
+              error.message.includes("NetworkError")
+            )) || 
+            error.name === "TypeError";
           
-          const isCORSError = error.message.includes("CORS") || 
-                             error.message.includes("Cross-Origin");
+          const isCORSError = 
+            error.message && (
+              error.message.includes("CORS") || 
+              error.message.includes("Cross-Origin")
+            );
           
           if (isNetworkError || isCORSError) {
             console.log("Network/CORS error on Vercel deployment, showing success anyway");
             setFormStatus("success");
             form.reset();
           } else {
-            // Log the error message for debugging
-            console.log(`Error on Vercel:`, error);
+            console.log("Unknown error on Vercel, showing error message");
             setFormStatus("error");
           }
         } else {
+          console.log("Error in development environment");
           setFormStatus("error");
         }
       }
