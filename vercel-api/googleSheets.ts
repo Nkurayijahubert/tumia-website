@@ -80,21 +80,58 @@ const initGoogleSheets = async () => {
 
 // Add a waitlist entry to Google Sheets
 export const addToGoogleSheet = async (entry: WaitlistEntry): Promise<boolean> => {
-  // If Google Sheets integration is not configured, log and return
-  if (!process.env.GOOGLE_SHEET_ID || !process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
-    console.warn('Google Sheets credentials not configured. Entry not saved.');
+  console.log("===== GOOGLE SHEETS INTEGRATION DEBUG =====");
+  
+  // Check environment variables with detailed logging
+  if (!process.env.GOOGLE_SHEET_ID) {
+    console.error('GOOGLE_SHEET_ID environment variable is missing');
+    console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
     return false;
   }
+  
+  if (!process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+    console.error('GOOGLE_SERVICE_ACCOUNT_KEY environment variable is missing');
+    console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
+    return false;
+  }
+  
+  console.log(`Using Google Sheet ID: ${process.env.GOOGLE_SHEET_ID}`);
+  const keyPreview = process.env.GOOGLE_SERVICE_ACCOUNT_KEY.substring(0, 20) + '...';
+  console.log(`Service Account Key preview: ${keyPreview}, length: ${process.env.GOOGLE_SERVICE_ACCOUNT_KEY.length}`);
 
   try {
-    // Initialize Google Sheets if needed
-    await initGoogleSheets();
+    // Initialize Google Sheets with better error handling
+    console.log("Initializing Google Sheets API...");
+    try {
+      await initGoogleSheets();
+      console.log("Google Sheets API initialized successfully");
+    } catch (initError) {
+      console.error("Failed to initialize Google Sheets:", initError);
+      console.error("Error message:", initError.message);
+      console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
+      throw initError; // Re-throw to be caught by outer try/catch
+    }
 
-    const auth = getAuth();
+    // Get auth with better error handling
+    console.log("Getting Google Auth JWT client...");
+    let auth;
+    try {
+      auth = getAuth();
+      console.log("Auth client created successfully");
+    } catch (authError) {
+      console.error("Failed to create auth client:", authError);
+      console.error("Error message:", authError.message);
+      console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
+      throw authError; // Re-throw to be caught by outer try/catch
+    }
+    
+    // Create sheets client
+    console.log("Creating Google Sheets client...");
     const sheets = google.sheets({ version: 'v4', auth });
     
     // Format the current date
     const currentDate = new Date().toISOString();
+    console.log("Preparing row data for:", entry.email);
     
     // Prepare the row data
     const values = [
@@ -102,19 +139,37 @@ export const addToGoogleSheet = async (entry: WaitlistEntry): Promise<boolean> =
     ];
     
     // Append the data to the specified sheet
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Sheet1!A:E', // Use the default 'Sheet1' instead of 'Waitlist'
-      valueInputOption: 'RAW',
-      requestBody: {
-        values,
-      },
-    });
-    
-    console.log(`Added ${entry.email} to Google Sheet successfully`);
-    return true;
+    console.log("Appending data to Google Sheet...");
+    try {
+      await sheets.spreadsheets.values.append({
+        spreadsheetId: process.env.GOOGLE_SHEET_ID,
+        range: 'Sheet1!A:E', // Use the default 'Sheet1' instead of 'Waitlist'
+        valueInputOption: 'RAW',
+        requestBody: {
+          values,
+        },
+      });
+      
+      console.log(`Added ${entry.email} to Google Sheet successfully`);
+      console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
+      return true;
+    } catch (appendError) {
+      console.error("Error appending data to sheet:", appendError);
+      console.error("Error message:", appendError.message);
+      if (appendError.response) {
+        console.error("Response error data:", appendError.response.data);
+        console.error("Response error status:", appendError.response.status);
+      }
+      console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
+      throw appendError; // Re-throw to be caught by outer try/catch
+    }
   } catch (error) {
-    console.error('Error adding to Google Sheet:', error);
+    console.error('Overall error in Google Sheets integration:', error);
+    if (error instanceof Error) {
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+    }
+    console.log("===== GOOGLE SHEETS INTEGRATION DEBUG END =====");
     return false;
   }
 };
