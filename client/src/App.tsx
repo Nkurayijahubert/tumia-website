@@ -38,12 +38,22 @@ function Router() {
     // Check if we're in a static environment (GitHub Pages)
     if (window.location.hostname.includes("github.io") || 
         import.meta.env.VITE_FORCE_STATIC_MODE === "true") {
+      console.log("Static mode enforced by environment or hostname");
       setUseStaticMode(true);
       setIsLoading(false);
       return;
     }
     
-    // Check API availability
+    // Special case for Vercel deployment - look for .vercel.app domain
+    // We know the API endpoints are available on Vercel since they're serverless functions
+    if (window.location.hostname.includes(".vercel.app")) {
+      console.log("Vercel deployment detected, assuming API is available");
+      setUseStaticMode(false);
+      setIsLoading(false);
+      return;
+    }
+    
+    // For other environments, check API availability
     checkApiAvailability().then(isAvailable => {
       setUseStaticMode(!isAvailable);
       setIsLoading(false);
