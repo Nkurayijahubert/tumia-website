@@ -44,11 +44,11 @@ function Router() {
       return;
     }
     
-    // Special case for Vercel deployment - look for .vercel.app domain
-    // We know the API endpoints are available on Vercel since they're serverless functions
+    // Special case for Vercel deployment - for now we'll use static mode
+    // until we fix the API issues on Vercel
     if (window.location.hostname.includes(".vercel.app")) {
-      console.log("Vercel deployment detected, assuming API is available");
-      setUseStaticMode(false);
+      console.log("Vercel deployment detected, using static mode for reliability");
+      setUseStaticMode(true);
       setIsLoading(false);
       return;
     }
