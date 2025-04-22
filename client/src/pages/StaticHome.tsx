@@ -7,7 +7,6 @@ import HowItWorksSection from "@/components/HowItWorksSection";
 import TestimonialSection from "@/components/TestimonialSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
-import BrandsSection from "@/components/BrandsSection";
 import StaticWaitlistSection from "@/components/StaticWaitlistSection";
 
 /**
@@ -19,7 +18,6 @@ export default function StaticHome() {
     <main className="min-h-screen flex flex-col">
       <Header />
       <HeroSection />
-      <BrandsSection />
       <FeaturesSection />
       <BenefitsSection />
       <HowItWorksSection />
