@@ -326,7 +326,7 @@ export default function WaitlistSection() {
                     <CheckCircle className="text-green-600 mr-2" size={20} />
                     <span className="font-medium">Success!</span>
                   </div>
-                  <p>Thank you for joining our waitlist. We'll be in touch soon with more information.</p>
+                  <p>Thank you for joining our waitlist. We'll be in touch soon with more informationnnnn.</p>
                 </div>
               )}
               
