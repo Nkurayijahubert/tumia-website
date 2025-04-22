@@ -73,7 +73,7 @@ function Router() {
   }
   
   // Use the appropriate Home component based on API availability
-  const HomeComponent = useStaticMode ? StaticHome : Home;
+  const HomeComponent = Home;
   
   // Debug in console which mode we're using
   console.log("Static mode:", useStaticMode ? "enabled" : "disabled");

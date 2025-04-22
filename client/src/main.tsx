@@ -9,9 +9,7 @@ const isStaticMode =
 console.log("Static mode:", isStaticMode ? "enabled" : "disabled");
 
 // Dynamically import the appropriate app component
-const AppPromise = isStaticMode 
-  ? import("./App.simplified").then(m => m.default)
-  : import("./App").then(m => m.default);
+const AppPromise = import("./App").then(m => m.default);
 
 // Render when the component is loaded
 AppPromise.then(App => {

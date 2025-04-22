@@ -13,9 +13,10 @@ import Footer from "@/components/Footer";
 export default function Home() {
   // Check if we're in static mode (GitHub Pages deployment)
   // This will be true when running with vite.github.config.ts
-  const isStaticMode = import.meta.env.VITE_STATIC_MODE === 'true' || 
-                       window.location.hostname.includes('github.io');
-  
+  const isStaticMode =
+    import.meta.env.VITE_STATIC_MODE === "true" ||
+    window.location.hostname.includes("github.io");
+
   return (
     <div className="font-sans text-neutral bg-white">
       <Header />
@@ -25,7 +26,7 @@ export default function Home() {
         <BenefitsSection />
         <HowItWorksSection />
         <TestimonialSection />
-        {isStaticMode ? <StaticWaitlistSection /> : <WaitlistSection />}
+        <WaitlistSection />
         <FAQSection />
         <CTASection />
       </main>
