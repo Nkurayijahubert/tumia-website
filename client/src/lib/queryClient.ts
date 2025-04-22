@@ -13,7 +13,7 @@ export async function apiRequest(
   data?: unknown | undefined,
 ): Promise<Response> {
   try {
-    console.log(`API Request: ${method} ${url}`, data ? { data } : '');
+    console.log(`API Request: ${method} ${url}`);
     
     const res = await fetch(url, {
       method,
@@ -29,12 +29,17 @@ export async function apiRequest(
   } catch (error) {
     console.error(`API Error for ${method} ${url}:`, error);
     
-    // Add information about the environment to the error
+    // Safely enhance the error without causing issues on error serializing
+    let errorMessage = "Unknown error";
+    try {
+      errorMessage = error.message || "Unknown error";
+    } catch (e) {
+      // Ignore errors getting the message
+    }
+    
     const enhancedError = new Error(
-      `${error.message} (Host: ${window.location.hostname}, URL: ${url})`
+      `${errorMessage} (URL: ${url})`
     );
-    enhancedError.name = error.name;
-    enhancedError.stack = error.stack;
     
     throw enhancedError;
   }
@@ -64,12 +69,17 @@ export const getQueryFn: <T>(options: {
     } catch (error) {
       console.error(`Query Error for ${queryKey[0]}:`, error);
       
-      // Add information about the environment to the error
+      // Safely enhance the error
+      let errorMessage = "Unknown error";
+      try {
+        errorMessage = error.message || "Unknown error";
+      } catch (e) {
+        // Ignore errors getting the message
+      }
+      
       const enhancedError = new Error(
-        `${error.message} (Host: ${window.location.hostname}, QueryKey: ${queryKey[0]})`
+        `${errorMessage} (QueryKey: ${queryKey[0]})`
       );
-      enhancedError.name = error.name;
-      enhancedError.stack = error.stack;
       
       throw enhancedError;
     }

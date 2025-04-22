@@ -78,8 +78,8 @@ export default function WaitlistSection() {
             setFormStatus("success");
             form.reset();
           } else {
-            // Save the full error message for debugging
-            console.log(`Full error on Vercel: ${JSON.stringify(error)}`);
+            // Log the error message for debugging
+            console.log(`Error on Vercel:`, error);
             setFormStatus("error");
           }
         } else {
@@ -264,7 +264,7 @@ export default function WaitlistSection() {
                     <AlertCircle className="text-red-600 mr-2" size={20} />
                     <span className="font-medium">Error</span>
                   </div>
-                  <p>Error details: {waitlistMutation.error?.message || "Unknown error"}</p>
+                  <p>Error details: {typeof waitlistMutation.error === 'string' ? waitlistMutation.error : waitlistMutation.error?.message || "Unknown error"}</p>
                   <p className="mt-2">Please try again later or contact us directly.</p>
                 </div>
               )}
