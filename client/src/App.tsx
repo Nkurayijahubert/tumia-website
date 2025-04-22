@@ -35,6 +35,7 @@ function Router() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   
   useEffect(() => {
+    const checkAvailability = async () => {
     // Check if we're in a static environment (GitHub Pages)
     if (window.location.hostname.includes("github.io") || 
         import.meta.env.VITE_FORCE_STATIC_MODE === "true") {
@@ -44,11 +45,30 @@ function Router() {
       return;
     }
     
-    // Special case for Vercel deployment - for now we'll use static mode
-    // until we fix the API issues on Vercel
+    // Check if we're on Vercel - attempt to use API but have fallback ready
     if (window.location.hostname.includes(".vercel.app")) {
-      console.log("Vercel deployment detected, using static mode for reliability");
-      setUseStaticMode(true);
+      console.log("Vercel deployment detected, checking API availability...");
+      
+      // Try API check with a shorter timeout for Vercel
+      try {
+        const response = await fetch("/api/health", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          signal: AbortSignal.timeout(3000), // Shorter timeout
+        });
+        
+        if (response.ok) {
+          console.log("API is available on Vercel, using dynamic mode");
+          setUseStaticMode(false);
+        } else {
+          console.log("API health check failed on Vercel, using static mode");
+          setUseStaticMode(true);
+        }
+      } catch (error) {
+        console.log("API health check error on Vercel, using static mode:", error);
+        setUseStaticMode(true);
+      }
+      
       setIsLoading(false);
       return;
     }
@@ -58,6 +78,10 @@ function Router() {
       setUseStaticMode(!isAvailable);
       setIsLoading(false);
     });
+    };
+    
+    // Execute the async function
+    checkAvailability();
   }, []);
   
   if (isLoading) {
@@ -66,6 +90,9 @@ function Router() {
   
   // Use the appropriate Home component based on API availability
   const HomeComponent = useStaticMode ? StaticHome : Home;
+  
+  // Debug in console which mode we're using
+  console.log("Static mode:", useStaticMode ? "enabled" : "disabled");
   
   return (
     <Switch>

@@ -2,6 +2,9 @@
  * Waitlist API endpoint for Vercel
  * This is used to handle the waitlist form submissions
  */
+// Import Google Sheets integration (make sure to add this file)
+import { addToGoogleSheet } from '../vercel-api/googleSheets.js';
+
 export default async function handler(req, res) {
   // Log headers and environment for debugging
   console.log("Waitlist API called with headers:", JSON.stringify(req.headers));
@@ -35,8 +38,31 @@ export default async function handler(req, res) {
     
     console.log('Received waitlist submission:', { name, email, company, role });
     
-    // On Vercel, we'll just return success without actually trying Google Sheets integration
-    // This ensures the form works even if the integration is not set up
+    // Try to add to Google Sheets if credentials are available
+    if (process.env.GOOGLE_SHEET_ID && process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+      try {
+        console.log('Attempting to add to Google Sheets...');
+        const addedToSheet = await addToGoogleSheet({ name, email, company, role });
+        
+        if (addedToSheet) {
+          console.log('Successfully added to Google Sheets');
+          return res.status(201).json({
+            success: true,
+            message: "Successfully added to waitlist and Google Sheets",
+            data: { email }
+          });
+        } else {
+          console.log('Failed to add to Google Sheets, but continuing');
+        }
+      } catch (googleError) {
+        console.error('Google Sheets integration error:', googleError);
+        // Continue execution and return success anyway
+      }
+    } else {
+      console.log('Google Sheets credentials not available');
+    }
+    
+    // Default response if Google Sheets integration was skipped or failed
     return res.status(201).json({
       success: true,
       message: "Successfully added to waitlist",
