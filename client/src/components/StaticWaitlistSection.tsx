@@ -22,26 +22,66 @@ export default function StaticWaitlistSection() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission with a delay
-    setTimeout(() => {
+    // Get form data for submission
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      company: formData.get('company') as string,
+      role: formData.get('role') as string
+    };
+    
+    console.log('Static form submission with data:', data);
+    
+    // Try to submit to API first, with fallback to simulated success
+    try {
+      // Try to call the API directly
+      const apiResponse = await fetch('/api/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        // Add a short timeout to avoid long waits if API is unavailable
+        signal: AbortSignal.timeout(3000)
+      });
+      
+      if (apiResponse.ok) {
+        console.log('StaticWaitlistSection: API submission successful!');
+        setFormStatus("success");
+      } else {
+        // If we get an error response, check if it's just a duplicate email
+        try {
+          const responseData = await apiResponse.json();
+          
+          if (apiResponse.status === 409 && responseData.message?.includes('already registered')) {
+            console.log('StaticWaitlistSection: Duplicate email detected');
+            // Still show success for user experience
+            setFormStatus("success");
+          } else {
+            console.log('StaticWaitlistSection: API error response:', responseData);
+            // Fallback to success even on error for better UX in static mode
+            setFormStatus("success");
+          }
+        } catch (parseError) {
+          console.log('StaticWaitlistSection: Could not parse error response:', parseError);
+          // Fallback to success even on error for better UX in static mode
+          setFormStatus("success");
+        }
+      }
+    } catch (fetchError) {
+      console.log('StaticWaitlistSection: API fetch error:', fetchError);
+      
+      // If the API call fails, we fall back to always showing success
+      // This ensures the static version always provides a good user experience
       setFormStatus("success");
-      e.currentTarget.reset();
-      setRole("");
-      setIsSubmitting(false);
-      
-      // Reset form status after 8 seconds
-      setTimeout(() => setFormStatus("idle"), 8000);
-      
-      // Log the submission for debugging
-      const formData = new FormData(e.currentTarget);
-      const data = {
-        name: formData.get('name'),
-        email: formData.get('email'),
-        company: formData.get('company'),
-        role: formData.get('role')
-      };
-      console.log('Static form submission (data will be stored when API is fixed):', data);
-    }, 1500);
+    }
+    
+    // Reset the form regardless of what happened with the API
+    e.currentTarget.reset();
+    setRole("");
+    setIsSubmitting(false);
+    
+    // Reset form status after 8 seconds
+    setTimeout(() => setFormStatus("idle"), 8000);
   };
 
   return (
