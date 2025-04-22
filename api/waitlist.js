@@ -3,23 +3,33 @@
  * This is used to handle the waitlist form submissions
  */
 export default async function handler(req, res) {
+  // Log headers and environment for debugging
+  console.log("Waitlist API called with headers:", JSON.stringify(req.headers));
+  console.log("Environment:", process.env.NODE_ENV);
+  console.log("Vercel:", process.env.VERCEL === '1' ? 'true' : 'false');
+  
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ 
       success: false, 
-      message: 'Method not allowed' 
+      message: 'Method not allowed',
+      method: req.method
     });
   }
 
   try {
+    // Check if body is properly parsed
+    console.log("Request body:", JSON.stringify(req.body));
+    
     // Basic validation
-    const { name, email, company, role } = req.body;
+    const { name, email, company, role } = req.body || {};
     
     if (!name || !email || !company || !role) {
       return res.status(400).json({
         success: false,
         message: "Missing required fields",
-        requiredFields: ["name", "email", "company", "role"]
+        requiredFields: ["name", "email", "company", "role"],
+        received: { name, email, company, role }
       });
     }
     
@@ -37,7 +47,10 @@ export default async function handler(req, res) {
     return res.status(500).json({
       success: false,
       message: "Server error processing waitlist submission",
-      error: error.message
+      error: error.message,
+      stack: error.stack,
+      environment: process.env.NODE_ENV || 'production',
+      vercel: process.env.VERCEL === '1' ? 'true' : 'false'
     });
   }
 }

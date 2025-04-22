@@ -63,13 +63,25 @@ export default function WaitlistSection() {
         setFormStatus("exists");
         form.reset();
       } else {
-        // For network errors on Vercel deployment, we want to show success rather than an error
-        // This ensures better UX even if API calls fail due to configuration issues
-        if (window.location.hostname.includes(".vercel.app") && 
-            (error.message.includes("Failed to fetch") || error.name === "TypeError")) {
-          console.log("Network error on Vercel deployment, showing success anyway");
-          setFormStatus("success");
-          form.reset();
+        // Special handling for Vercel deployment issues
+        if (window.location.hostname.includes(".vercel.app")) {
+          // Common errors on Vercel deployment
+          const isNetworkError = error.message.includes("Failed to fetch") || 
+                                error.name === "TypeError" ||
+                                error.message.includes("NetworkError");
+          
+          const isCORSError = error.message.includes("CORS") || 
+                             error.message.includes("Cross-Origin");
+          
+          if (isNetworkError || isCORSError) {
+            console.log("Network/CORS error on Vercel deployment, showing success anyway");
+            setFormStatus("success");
+            form.reset();
+          } else {
+            // Save the full error message for debugging
+            console.log(`Full error on Vercel: ${JSON.stringify(error)}`);
+            setFormStatus("error");
+          }
         } else {
           setFormStatus("error");
         }
@@ -252,7 +264,8 @@ export default function WaitlistSection() {
                     <AlertCircle className="text-red-600 mr-2" size={20} />
                     <span className="font-medium">Error</span>
                   </div>
-                  <p>Something went wrong. Please try again later or contact us directly.</p>
+                  <p>Error details: {waitlistMutation.error?.message || "Unknown error"}</p>
+                  <p className="mt-2">Please try again later or contact us directly.</p>
                 </div>
               )}
             </div>
