@@ -20,17 +20,17 @@ const features = [
   {
     icon: <LineChart className="text-2xl text-primary" />,
     title: "Automated Reporting",
-    description: "Generate customized reports that link spending to business milestones and impact, for effective communication with stakeholders.",
+    description: "Generate customized reports that link spending to outcomes and impact, for effective accountability to funding partners and stakeholders.",
   },
   {
     icon: <CalendarCheck className="text-2xl text-primary" />,
     title: "Milestone Tracking",
-    description: "Track progress against key milestones with objective verification of completion for investors and stakeholders.",
+    description: "Track progress against key milestones with objective verification of completion for funding partners and stakeholders.",
   },
   {
     icon: <Coins className="text-2xl text-primary" />,
-    title: "Fundraising Readiness",
-    description: "Assessment tools that evaluate when your startup is financially ready for the next funding round.",
+    title: "Impact Assessment",
+    description: "Tools that measure and showcase your organization's impact and financial accountability to current and future funding partners.",
   },
 ];
 
@@ -67,7 +67,7 @@ export default function FeaturesSection() {
             Everything you need for financial accountability
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia combines smart spend management, goal-setting, and impact tracking to help African startups make data-driven decisions.
+            Tumia combines smart spend management, goal-setting, and impact tracking to help organizations across Africa make data-driven decisions that maximize their funding's impact.
           </p>
         </div>
         

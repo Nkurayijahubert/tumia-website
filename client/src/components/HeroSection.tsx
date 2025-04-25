@@ -17,10 +17,10 @@ export default function HeroSection() {
               Coming Soon
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A2A2A] leading-tight mb-6">
-              Prove Impact, <span className="text-primary">Unlock Growth</span> - The Financial Copilot for Africa's Startup Ecosystem
+              Connecting Funding to <span className="text-primary">Impact</span> - The Financial Accountability Platform for Africa's Innovation Ecosystem
             </h1>
             <p className="text-lg md:text-xl text-[#767676] mb-8 max-w-xl mx-auto lg:mx-0">
-              We help startups build strong financial habits, achieve growth goals, and become a scalable, investment-ready businesses.
+              We help funded organizations build strong financial habits, achieve meaningful outcomes, and demonstrate accountability to their funding partners.
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
               <a href="#waitlist">
