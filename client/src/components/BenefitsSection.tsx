@@ -56,49 +56,56 @@ export default function BenefitsSection() {
             Value for every stakeholder
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia creates value for funded organizations, funders, foundations, accelerators, and the entire innovation ecosystem.
+            Tumia creates value for funded organizations, funders, foundations,
+            accelerators, and the entire innovation ecosystem.
           </p>
         </div>
-        
+
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden max-w-5xl mx-auto">
-          <Tabs 
-            value={activeTab} 
+          <Tabs
+            value={activeTab}
             onValueChange={setActiveTab}
             className="w-full"
           >
             <TabsList className="flex w-full rounded-none border-b border-gray-200">
-              <TabsTrigger 
-                value="startups" 
+              <TabsTrigger
+                value="startups"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
                 For Funded Organizations
               </TabsTrigger>
-              <TabsTrigger 
-                value="investors" 
+              <TabsTrigger
+                value="investors"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                For Funders & Foundations
+                For Funders
               </TabsTrigger>
-              <TabsTrigger 
-                value="ecosystem" 
+              <TabsTrigger
+                value="ecosystem"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
                 For the Ecosystem
               </TabsTrigger>
             </TabsList>
-            
+
             {Object.entries(benefitsData).map(([key, data]) => (
-              <TabsContent key={key} value={key} className="p-6 md:p-10 focus:outline-none">
+              <TabsContent
+                key={key}
+                value={key}
+                className="p-6 md:p-10 focus:outline-none"
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <h3 className="text-2xl font-bold mb-4 text-[#2A2A2A]">{data.title}</h3>
+                    <h3 className="text-2xl font-bold mb-4 text-[#2A2A2A]">
+                      {data.title}
+                    </h3>
                     <ul className="space-y-4">
                       {data.items.map((item, index) => (
-                        <motion.li 
+                        <motion.li
                           key={index}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
@@ -113,15 +120,15 @@ export default function BenefitsSection() {
                       ))}
                     </ul>
                   </motion.div>
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5 }}
                     className="relative h-64 md:h-80 rounded-xl overflow-hidden"
                   >
-                    <img 
-                      src={data.image} 
-                      alt={data.alt} 
+                    <img
+                      src={data.image}
+                      alt={data.alt}
                       className="w-full h-full object-contain"
                     />
                   </motion.div>
