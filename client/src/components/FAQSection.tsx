@@ -13,11 +13,15 @@ const faqs = [
   },
   {
     question: "How does Tumia integrate with existing financial services?",
-    answer: "Tumia offers API integrations with major banking providers, accounting software, and payment platforms across Africa. Our solution is designed to complement your existing financial infrastructure while providing enhanced capabilities for spend management and reporting.",
+    answer: "Tumia offers API integrations with major banking providers, accounting software, and payment platforms across Africa. Our solution complements your existing financial infrastructure while providing enhanced capabilities for spend management, impact tracking, and outcome-based reporting.",
   },
   {
-    question: "Is Tumia only for startups that have received funding?",
-    answer: "While Tumia is optimized for startups that have received or are seeking funding, our platform is valuable for any early-stage business looking to establish strong financial habits and accountability. We offer special pricing for bootstrapped startups.",
+    question: "How does Tumia help with funding accountability?",
+    answer: "Tumia provides tools to link spending directly to outcomes, generate transparent reports for funders, and track impact metrics over time. This creates trust and accountability between funded organizations and their funding partners, leading to more sustainable relationships and improved funding outcomes.",
+  },
+  {
+    question: "Is Tumia only for organizations that have received funding?",
+    answer: "Tumia is designed for any organization in Africa's innovation ecosystem that receives and manages funding. This includes NGOs, social enterprises, research institutions, and startups. Our platform helps establish strong financial accountability and demonstrate impact to funding partners.",
   },
   {
     question: "How secure is Tumia for managing financial data?",

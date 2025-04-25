@@ -5,22 +5,22 @@ const steps = [
   {
     number: 1,
     title: "Onboarding & Goal Setting",
-    description: "Amina joins Tumia after being selected for an accelerator program. She sets clear goals: build 100 prototype solar kits, pilot in 3 villages, and train 10 local technicians. Tumia's AI suggests realistic budget allocations based on similar startups' data.",
+    description: "Amina joins Tumia after her organization receives a grant from a foundation. She sets clear outcome goals: implement sustainable energy solutions in 3 communities, train 10 local technicians, and document environmental impact. Tumia suggests budget allocations tied to these outcomes.",
   },
   {
     number: 2,
     title: "Smart Spend Management",
-    description: "Amina receives funds in her Tumia wallet and uses virtual cards to pay suppliers, technicians, and partners. Every payment is tracked in real-time and categorized, helping her make informed budget adjustments.",
+    description: "Amina's organization receives funds in their Tumia wallet and uses virtual cards to pay suppliers, technicians, and partners. Every payment is tracked in real-time, categorized, and linked to specific outcome goals, ensuring transparent fund utilization.",
   },
   {
     number: 3,
     title: "Progress & Impact Tracking",
-    description: "As the pilot unfolds, Amina logs outcomes in Tumia. The platform auto-generates reports linking her spending to results, benchmarking progress against industry standards.",
+    description: "As the project unfolds, Amina logs outcomes and impact metrics in Tumia. The platform auto-generates reports linking spending to results, creating a clear line of sight between funding and real-world impact for their foundation partner.",
   },
   {
     number: 4,
-    title: "Ready for Scale",
-    description: "With a clear track record of disciplined spending, transparent reporting, and tangible results, Amina's GreenTech Rwanda is well-positioned to attract new investors and scale across the region.",
+    title: "Accountability & Continued Support",
+    description: "With a clear track record of transparent spending, outcome-based reporting, and documented impact, Amina's Impact Innovation Network builds trust with their funding partners and secures continued support for expanding their initiative.",
   },
 ];
 
@@ -33,10 +33,10 @@ export default function HowItWorksSection() {
             How It Works
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-6">
-            Your journey to financial empowerment
+            Your journey to financial accountability and impact
           </h2>
           <p className="text-[#767676] text-lg">
-            See how Tumia works through the story of Amina, founder of GreenTech Rwanda.
+            See how Tumia works through the story of Amina, Executive Director of Impact Innovation Network.
           </p>
         </div>
         
