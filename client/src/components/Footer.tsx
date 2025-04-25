@@ -11,8 +11,8 @@ export default function Footer() {
               <img src={logoImage} alt="Tumia" className="h-10 filter brightness-0 invert" />
             </a>
             <p className="text-white/80 mb-6 max-w-md">
-              Prove Impact, Unlock Growth - The Financial Copilot for Africa's Startup Ecosystem.
-              Build strong financial habits, achieve your growth goals, and become a scalable, investment-ready business.
+              Connecting Funding to Impact - The Financial Accountability Platform for Africa's Innovation Ecosystem.
+              Build strong financial habits, achieve meaningful outcomes, and demonstrate the real-world impact of your funding.
             </p>
             <div className="flex space-x-4">
               <a href="https://x.com/usetumia" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">

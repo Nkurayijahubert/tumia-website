@@ -8,37 +8,37 @@ import ecosystemImage from "../assets/5.jpg";
 
 const benefitsData = {
   startups: {
-    title: "For Founders",
+    title: "For Funded Organizations",
     items: [
-      "Build lasting financial discipline and readiness for growth",
+      "Build lasting financial discipline and demonstrate accountability",
       "Access real-time tools and AI guidance for smarter spending",
-      "Dynamic runway calculator that updates with each transaction",
-      "Easily demonstrate progress and impact to attract further investment",
+      "Link spending directly to outcomes and impact metrics",
+      "Easily demonstrate meaningful progress to current and future funding partners",
     ],
     image: startupsImage,
-    alt: "African startup founder working on financial analytics",
+    alt: "African organization leaders working on financial accountability",
   },
   investors: {
-    title: "For Investors & Accelerators",
+    title: "For Funders & Foundations",
     items: [
       "Gain actionable insights and transparent progress tracking",
-      "Ensure that support translates into real business growth",
-      "Release funds in tranches tied to specific milestones",
-      "Foster a new generation of scalable, fundable businesses",
+      "Ensure that funding translates into real-world impact",
+      "Release funds in tranches tied to specific milestones and outcomes",
+      "Foster a more accountable and impactful innovation ecosystem in Africa",
     ],
     image: investorsImage,
-    alt: "Investors discussing growth opportunities with startup founders",
+    alt: "Funding partners reviewing impact metrics with organization leaders",
   },
   ecosystem: {
     title: "For the Ecosystem",
     items: [
-      "Raise the standard of financial empowerment among entrepreneurs",
-      "Bridge the gap between funding and sustainable growth",
-      "Increase success rates of early-stage ventures",
-      "Drive inclusive economic development across Africa",
+      "Raise the standard of financial accountability across Africa's innovation landscape",
+      "Bridge the gap between funding and sustainable impact",
+      "Increase success rates of funded initiatives and programs",
+      "Drive inclusive economic development and measurable change across Africa",
     ],
     image: ecosystemImage,
-    alt: "African entrepreneurs celebrating increased success rates of early-stage ventures",
+    alt: "African innovation ecosystem stakeholders celebrating increased impact of funded initiatives",
   },
 };
 
@@ -56,7 +56,7 @@ export default function BenefitsSection() {
             Value for every stakeholder
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia creates value for startups, investors, accelerators, and the entire ecosystem.
+            Tumia creates value for funded organizations, funders, foundations, accelerators, and the entire innovation ecosystem.
           </p>
         </div>
         
@@ -71,13 +71,13 @@ export default function BenefitsSection() {
                 value="startups" 
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                For Startups
+                For Funded Organizations
               </TabsTrigger>
               <TabsTrigger 
                 value="investors" 
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                For Investors & Accelerators
+                For Funders & Foundations
               </TabsTrigger>
               <TabsTrigger 
                 value="ecosystem" 
