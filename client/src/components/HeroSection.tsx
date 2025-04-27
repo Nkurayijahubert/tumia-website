@@ -17,7 +17,7 @@ export default function HeroSection() {
               Coming Soon
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A2A2A] leading-tight mb-6">
-              Connecting <span className="text-primary">Funding</span> to <span className="text-primary">Impact</span> - The Financial Accountability Platform for Africa's Innovation Ecosystem
+              Connecting <span className="text-primary">Funding</span> to <span className="text-primary">Impact</span>
             </h1>
             <p className="text-lg md:text-xl text-[#767676] mb-8 max-w-xl mx-auto lg:mx-0">
               We help funded organizations build strong financial habits, achieve meaningful outcomes, and demonstrate accountability to their funding partners.
