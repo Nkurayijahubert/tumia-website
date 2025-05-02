@@ -7,15 +7,40 @@ import { CheckCircle, AlertTriangle } from "lucide-react";
 export default function Confirmation() {
   const search = useSearch();
   const params = new URLSearchParams(search);
-  const email = params.get("email") || "your email";
+  const [email, setEmail] = useState(params.get("email") || "your account");
   const [location, setLocation] = useLocation();
   const [isExpired, setIsExpired] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState(false);
   
   // For debugging
   console.log("Search params:", search);
-  console.log("Email parameter:", email);
   
-  // Check for hash parameters indicating OTP expiration 
+  // Parse JWT from hash if present and extract email
+  const parseJWT = (token: string) => {
+    try {
+      // Get the payload part of the JWT (second part between dots)
+      const base64Url = token.split('.')[1];
+      if (!base64Url) return null;
+      
+      // Convert base64url to regular base64
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      
+      // Decode and parse as JSON
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      console.error("Error parsing JWT:", e);
+      return null;
+    }
+  };
+  
+  // Check hash parameters on load
   useEffect(() => {
     const hash = window.location.hash;
     console.log("Hash:", hash);
@@ -23,17 +48,32 @@ export default function Confirmation() {
     if (hash.includes("error=access_denied") && hash.includes("error_code=otp_expired")) {
       console.log("OTP has expired");
       setIsExpired(true);
+      return;
+    }
+    
+    // Try to extract and decode access token
+    if (hash.includes("access_token=")) {
+      const hashParams = new URLSearchParams(hash.substring(1)); // Remove the leading #
+      const accessToken = hashParams.get("access_token");
+      
+      if (accessToken) {
+        console.log("Found access token in URL");
+        const decoded = parseJWT(accessToken);
+        
+        if (decoded && decoded.email) {
+          console.log("Extracted email from token:", decoded.email);
+          setEmail(decoded.email);
+          setIsConfirmed(true);
+        } else if (decoded && decoded.user_metadata && decoded.user_metadata.email) {
+          console.log("Extracted email from user_metadata:", decoded.user_metadata.email);
+          setEmail(decoded.user_metadata.email);
+          setIsConfirmed(true);
+        }
+      }
     }
   }, []);
 
-  // If no email is provided, we'll still show the page with default text
-  useEffect(() => {
-    if (email === "your email" && !isExpired) {
-      console.log("No email provided, but showing page with default text");
-    }
-  }, [email, isExpired, setLocation]);
-
-  // Render different content based on expiration status
+  // Render different content based on status
   const renderContent = () => {
     if (isExpired) {
       return (
