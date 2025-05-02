@@ -3,8 +3,6 @@ import { useLocation, useSearch, Link } from "wouter";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 export default function Confirmation() {
   const search = useSearch();
@@ -25,10 +23,8 @@ export default function Confirmation() {
   }, [email, setLocation]);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      
-      <main className="flex-grow py-20 bg-[#F6F1ED]/50">
+    <div className="flex flex-col min-h-screen bg-[#F6F1ED]/50">
+      <main className="flex-grow py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -41,11 +37,11 @@ export default function Confirmation() {
             </div>
             
             <h1 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-4">
-              Thank You for Joining!
+              Account Confirmed!
             </h1>
             
             <p className="text-lg text-[#767676] mb-6">
-              We've successfully added <span className="font-medium text-primary">{email}</span> to our waitlist. We're excited to have you join us on this journey toward financial accountability and impact in Africa's innovation ecosystem.
+              Your account <span className="font-medium text-primary">{email}</span> has been successfully confirmed. Thank you for verifying your email address. Your account is now active.
             </p>
             
             <div className="bg-[#F9C846]/10 p-6 rounded-lg text-left mb-8">
@@ -53,40 +49,33 @@ export default function Confirmation() {
               <ul className="space-y-2 text-[#767676]">
                 <li className="flex items-start">
                   <span className="mr-2 mt-1 text-primary">•</span>
-                  <span>You'll receive a confirmation email shortly</span>
+                  <span>You can now log in to your account</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 mt-1 text-primary">•</span>
-                  <span>We'll keep you updated on our launch progress</span>
+                  <span>Explore our financial accountability tools</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 mt-1 text-primary">•</span>
-                  <span>You'll get early access to our platform when we launch</span>
+                  <span>Connect with funding partners on our platform</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 mt-1 text-primary">•</span>
-                  <span>We'll share financial management resources for funded organizations</span>
+                  <span>Access financial management resources for your organization</span>
                 </li>
               </ul>
             </div>
             
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex justify-center">
               <Link href="/">
                 <Button className="px-6 py-6 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90 transition-all shadow-md text-center">
-                  Return to Home
+                  Check Our Website
                 </Button>
               </Link>
-              <a href="https://x.com/usetumia" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="px-6 py-6 bg-white text-primary border border-primary font-medium rounded-lg hover:bg-primary/5 transition-all text-center">
-                  Follow Us on Twitter
-                </Button>
-              </a>
             </div>
           </motion.div>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 }
