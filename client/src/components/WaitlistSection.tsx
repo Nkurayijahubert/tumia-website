@@ -3,6 +3,7 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Star, CheckCircle, AlertCircle } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -35,6 +36,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 export default function WaitlistSection() {
   const [formStatus, setFormStatus] = useState<"idle" | "success" | "error" | "exists">("idle");
+  const [, setLocation] = useLocation();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -118,12 +120,15 @@ export default function WaitlistSection() {
         throw error;
       }
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       console.log("Waitlist submission successful");
       setFormStatus("success");
       form.reset();
-      // Reset form status after 8 seconds
-      setTimeout(() => setFormStatus("idle"), 8000);
+      
+      // Redirect to confirmation page with the submitted email
+      setTimeout(() => {
+        setLocation(`/confirm?email=${encodeURIComponent(variables.email)}`);
+      }, 1000);
     },
     onError: (error: any) => {
       console.error('Waitlist submission error:', error);
@@ -192,7 +197,7 @@ export default function WaitlistSection() {
             <div className="bg-primary p-10 md:p-12 text-white">
               <h2 className="text-3xl font-bold mb-6">Join our waitlist</h2>
               <p className="mb-8">
-                Be among the first to experience Tumia and unlock your startup's financial potential. Early access members receive:
+                Be among the first to experience Tumia and unlock your organization's financial accountability. Early access members receive:
               </p>
               <ul className="space-y-4">
                 {[
@@ -268,7 +273,7 @@ export default function WaitlistSection() {
                     render={({ field }) => (
                       <FormItem>
                         <Label htmlFor="company" className="text-sm font-medium text-[#2A2A2A] mb-2">
-                          Company Name
+                          Organization Name
                         </Label>
                         <FormControl>
                           <Input 
