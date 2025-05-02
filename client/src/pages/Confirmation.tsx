@@ -9,17 +9,20 @@ import Footer from "../components/Footer";
 export default function Confirmation() {
   const search = useSearch();
   const params = new URLSearchParams(search);
-  const email = params.get("email");
+  const email = params.get("email") || "your email";
+  
+  // For debugging
+  console.log("Search params:", search);
+  console.log("Email parameter:", email);
   const [location, setLocation] = useLocation();
 
   // If no email is provided, redirect to the home page
   useEffect(() => {
-    if (!email) {
-      setLocation("/");
+    if (email === "your email") {
+      console.log("No email provided, but showing page with default text");
+      // We're allowing the page to display with default text rather than redirecting
     }
   }, [email, setLocation]);
-
-  if (!email) return null;
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -16,6 +16,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/confirm" component={Confirmation} />
+      <Route path="/confirm/:rest*" component={Confirmation} />
       <Route component={NotFound} />
     </Switch>
   );
