@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Route, Router } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -8,26 +8,18 @@ import Home from "@/pages/Home";
 import Confirmation from "@/pages/Confirmation";
 
 /**
- * Always use the dynamic Home component which has proper
- * API integration for waitlist submissions
+ * Router setup with a base location hook to ensure proper client-side routing
  */
-function Router() {
-  return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/confirm" component={Confirmation} />
-      <Route path="/confirm/:rest*" component={Confirmation} />
-      <Route component={NotFound} />
-    </Switch>
-  );
-}
-
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <Router />
+        <Router base="">
+          <Route path="/" component={Home} />
+          <Route path="/confirm" component={Confirmation} />
+          <Route path="/:rest*" component={NotFound} />
+        </Router>
       </TooltipProvider>
     </QueryClientProvider>
   );
