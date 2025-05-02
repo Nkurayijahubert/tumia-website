@@ -58,7 +58,11 @@ export default function Confirmation() {
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 mt-1 text-primary">•</span>
-                  <span>You'll get early access to Tumia when we launch</span>
+                  <span>You'll get early access to our platform when we launch</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="mr-2 mt-1 text-primary">•</span>
+                  <span>We'll share financial management resources for funded organizations</span>
                 </li>
               </ul>
             </div>

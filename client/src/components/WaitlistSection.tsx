@@ -143,6 +143,14 @@ export default function WaitlistSection() {
         console.log("Duplicate email detected, showing exists message");
         setFormStatus("exists");
         form.reset();
+        
+        // Extract the email that caused the conflict
+        const email = form.getValues("email");
+        
+        // Redirect to confirmation page even if already registered
+        setTimeout(() => {
+          setLocation(`/confirm?email=${encodeURIComponent(email)}`);
+        }, 1000);
       } else {
         // Special handling for Vercel deployment issues
         if (window.location.hostname.includes(".vercel.app")) {
@@ -162,8 +170,16 @@ export default function WaitlistSection() {
           
           if (isNetworkError || isCORSError) {
             console.log("Network/CORS error on Vercel deployment, showing success anyway");
-            setFormStatus("error");
+            setFormStatus("success");
             form.reset();
+            
+            // Extract the email to pass to confirmation page
+            const email = form.getValues("email");
+            
+            // Redirect to confirmation page even with network errors
+            setTimeout(() => {
+              setLocation(`/confirm?email=${encodeURIComponent(email)}`);
+            }, 1000);
           } else {
             console.log("Unknown error on Vercel, showing error message");
             setFormStatus("error");
@@ -303,8 +319,10 @@ export default function WaitlistSection() {
                           </FormControl>
                           <SelectContent>
                             <SelectItem value="founder">Founder/Co-founder</SelectItem>
-                            <SelectItem value="investor">Investor</SelectItem>
-                            <SelectItem value="accelerator">Accelerator Program Manager</SelectItem>
+                            <SelectItem value="investor">Investor/Funder</SelectItem>
+                            <SelectItem value="accelerator">Accelerator/Incubator Program Manager</SelectItem>
+                            <SelectItem value="ngo">NGO/Foundation Representative</SelectItem>
+                            <SelectItem value="finance">Finance Manager</SelectItem>
                             <SelectItem value="other">Other</SelectItem>
                           </SelectContent>
                         </Select>
@@ -331,7 +349,7 @@ export default function WaitlistSection() {
                     <CheckCircle className="text-green-600 mr-2" size={20} />
                     <span className="font-medium">Success!</span>
                   </div>
-                  <p>Thank you for joining our waitlist. We'll be in touch soon with more informationnnnn.</p>
+                  <p>Thank you for joining our waitlist. You'll be redirected to our confirmation page in a moment.</p>
                 </div>
               )}
               
@@ -341,7 +359,7 @@ export default function WaitlistSection() {
                     <CheckCircle className="text-blue-600 mr-2" size={20} />
                     <span className="font-medium">Already Registered</span>
                   </div>
-                  <p>Thank you for your interest! We already have your email in our system. We'll contact you soon with more information about Tumia.</p>
+                  <p>Thank you for your interest! We already have your email in our system. You'll be redirected to our confirmation page in a moment.</p>
                 </div>
               )}
               
