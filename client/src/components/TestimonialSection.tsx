@@ -14,13 +14,13 @@ export default function TestimonialSection() {
         >
           <QuoteIcon size={40} className="text-[#F9C846] opacity-50 mx-auto mb-8" />
           <blockquote className="text-2xl md:text-3xl font-medium italic mb-8">
-            Tumia is empowering Africa's organizations to build better financial habits, demonstrate real impact, and become the continent's next generation of sustainable success stories.
+            Tumia has transformed how our community group manages funds. We can now track contributions for multiple projects in one account, and everyone sees exactly where their money goes.
           </blockquote>
           <div className="flex items-center justify-center">
             <div className="w-12 h-12 bg-[#F9C846] rounded-full mr-4"></div>
             <div className="text-left">
-              <div className="font-semibold">Amina Diallo</div>
-              <div className="text-white/70">Executive Director, Impact Innovation Network</div>
+              <div className="font-semibold">Jean-Paul Kagame</div>
+              <div className="text-white/70">Community Association Leader, Kigali</div>
             </div>
           </div>
         </motion.div>

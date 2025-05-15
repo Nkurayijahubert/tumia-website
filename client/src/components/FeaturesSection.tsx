@@ -81,12 +81,12 @@ export default function FeaturesSection() {
           <div className="bg-[#F9C846]/10 rounded-lg p-6 mb-8">
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <span className="text-white font-bold">1</span>
+                <span className="text-white font-bold">✓</span>
               </div>
-              <h3 className="text-2xl font-bold text-[#2A2A2A]">Feature 1: Organize Money for Every Cause</h3>
+              <h3 className="text-2xl font-bold text-[#2A2A2A]">Organize Money for Every Cause</h3>
             </div>
             <p className="text-[#767676] text-lg mb-8 pl-14">
-              Manage and track money collected for different purposes—all from a single account. Available now!
+              Whether you're a religious organization collecting tithes and donations, a community group raising funds for multiple projects, or an individual managing contributions for events, Tumia lets you create dedicated channels for each cause.
             </p>
             
             <motion.div 

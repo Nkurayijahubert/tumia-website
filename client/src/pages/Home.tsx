@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
 import BenefitsSection from "@/components/BenefitsSection";
-import HowItWorksSection from "@/components/HowItWorksSection";
+// Removing How It Works section as requested
 import TestimonialSection from "@/components/TestimonialSection";
 import WaitlistSection from "@/components/WaitlistSection";
 import FAQSection from "@/components/FAQSection";
@@ -17,7 +17,6 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <BenefitsSection />
-        <HowItWorksSection />
         <TestimonialSection />
         <WaitlistSection />
         <FAQSection />

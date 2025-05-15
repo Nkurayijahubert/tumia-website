@@ -7,43 +7,32 @@ import investorsImage from "../assets/3.jpg";
 import ecosystemImage from "../assets/5.jpg";
 
 const benefitsData = {
-  startups: {
-    title: "For Churches & Religious Groups",
-    items: [
-      "Separate tithes, offerings, and special project funds in one account",
-      "Track donations in real-time and generate transparent reports",
-      "Build trust with congregants through purpose-based fund tracking",
-      "Manage multiple ministry budgets with ease and accountability",
-    ],
-    image: startupsImage,
-    alt: "Religious leaders managing church funds for different purposes",
-  },
   investors: {
-    title: "For Community Groups & Clubs",
+    title: "For Community Groups & Organizations",
     items: [
       "Manage dues, event collections, and project funds from one account",
       "Track every contribution by its specific purpose",
       "Instantly see how much has been collected for each community need",
-      "Build transparency and trust with community members",
+      "Build transparency and trust with members and stakeholders",
     ],
     image: investorsImage,
     alt: "Community groups organizing finances for multiple projects",
   },
   ecosystem: {
-    title: "For Individuals & Families",
+    title: "For Individuals & Businesses",
     items: [
-      "Coming soon: Create virtual sub-wallets for savings, bills, and family support",
-      "Coming soon: Share specific sub-wallets with customizable permissions",
+      "Coming soon: Create virtual sub-wallets for savings, bills, and business expenses",
+      "Coming soon: Share specific sub-wallets with family, partners, or employees",
       "Coming soon: Set budgets and track spending for each purpose",
       "Coming soon: Get instant balance updates and spending alerts for each sub-wallet",
     ],
     image: ecosystemImage,
-    alt: "Family members collaboratively managing finances for different purposes",
+    alt: "People and businesses managing finances efficiently with virtual sub-wallets",
   },
 };
 
 export default function BenefitsSection() {
-  const [activeTab, setActiveTab] = useState("startups");
+  const [activeTab, setActiveTab] = useState("investors");
 
   return (
     <section id="benefits" className="py-20 bg-[#F6F1ED]/30">
@@ -57,7 +46,7 @@ export default function BenefitsSection() {
           </h2>
           <p className="text-[#767676] text-lg">
             Our two powerful features serve different needs: purpose-based tracking for organizations collecting funds,
-            and virtual sub-wallets (coming soon) for individuals managing personal finances.
+            and virtual sub-wallets (coming soon) for individuals and businesses managing finances.
           </p>
         </div>
 
@@ -69,22 +58,16 @@ export default function BenefitsSection() {
           >
             <TabsList className="flex w-full rounded-none border-b border-gray-200">
               <TabsTrigger
-                value="startups"
-                className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
-              >
-                Churches & Religious Groups
-              </TabsTrigger>
-              <TabsTrigger
                 value="investors"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                Community Groups
+                Community Groups & Organizations
               </TabsTrigger>
               <TabsTrigger
                 value="ecosystem"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                Individuals & Families
+                Individuals & Businesses
               </TabsTrigger>
             </TabsList>
 

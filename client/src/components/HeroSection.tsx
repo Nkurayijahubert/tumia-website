@@ -24,13 +24,13 @@ export default function HeroSection() {
             </p>
             <div className="bg-[#F9C846]/10 p-4 md:p-5 rounded-lg mb-6 text-left">
               <div className="flex items-start mb-2">
-                <span className="bg-primary rounded-full text-white flex items-center justify-center w-6 h-6 mt-1 mr-3 flex-shrink-0 text-sm font-bold">1</span>
+                <span className="bg-primary rounded-full text-white flex items-center justify-center w-6 h-6 mt-1 mr-3 flex-shrink-0 text-sm font-bold">✓</span>
                 <p className="font-semibold">
-                  <span className="text-primary">Feature 1:</span> Organize Money for Every Cause - Track funds collected for different purposes in one account
+                  <span className="text-primary">Organize Money for Every Cause</span> - Track funds collected for different purposes in one account
                 </p>
               </div>
               <div className="flex items-start">
-                <span className="bg-gray-200 text-gray-700 rounded-full flex items-center justify-center w-6 h-6 mt-1 mr-3 flex-shrink-0 text-sm font-bold">2</span>
+                <span className="bg-gray-200 text-gray-700 rounded-full flex items-center justify-center w-6 h-6 mt-1 mr-3 flex-shrink-0 text-sm font-bold">⏱</span>
                 <p className="font-semibold">
                   <span className="text-gray-500">Coming Soon:</span> Bring Order to Your Wallet - Create virtual sub-wallets for personal or business finances
                 </p>
