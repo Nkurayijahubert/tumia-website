@@ -53,11 +53,11 @@ export default function BenefitsSection() {
             Benefits
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-6">
-            Value for every stakeholder
+            Solutions for Everyone
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia creates value for funded organizations, funders, foundations,
-            accelerators, and the entire innovation ecosystem.
+            Tumia transforms how you interact with your money, bringing order, transparency, 
+            and control to your finances for every purpose and need.
           </p>
         </div>
 

@@ -4,23 +4,23 @@ import howItWorksImage from "../assets/4.jpg";
 const steps = [
   {
     number: 1,
-    title: "Onboarding & Goal Setting",
-    description: "Amina joins Tumia after her organization receives a grant from a foundation. She sets clear outcome goals: implement sustainable energy solutions in 3 communities, train 10 local technicians, and document environmental impact. Tumia suggests budget allocations tied to these outcomes.",
+    title: "Create Purpose-Based Channels",
+    description: "Pastor James of Faith Community Church creates different channels in Tumia for tithes, building fund, missions, and youth ministry. Each contribution can now be easily tagged and tracked according to its intended purpose.",
   },
   {
     number: 2,
-    title: "Smart Spend Management",
-    description: "Amina's organization receives funds in their Tumia wallet and uses virtual cards to pay suppliers, technicians, and partners. Every payment is tracked in real-time, categorized, and linked to specific outcome goals, ensuring transparent fund utilization.",
+    title: "Collect & Allocate Funds",
+    description: "As church members contribute, each donation is automatically categorized in real-time based on its purpose. Pastor James can instantly see how much has been collected for each need, without mixing funds or opening multiple accounts.",
   },
   {
     number: 3,
-    title: "Progress & Impact Tracking",
-    description: "As the project unfolds, Amina logs outcomes and impact metrics in Tumia. The platform auto-generates reports linking spending to results, creating a clear line of sight between funding and real-world impact for their foundation partner.",
+    title: "Track & Report Transparently",
+    description: "Tumia generates clear reports showing how much was collected for each purpose and how the funds were utilized. This transparency builds trust with church members who can see exactly how their contributions are making an impact.",
   },
   {
     number: 4,
-    title: "Accountability & Continued Support",
-    description: "With a clear track record of transparent spending, outcome-based reporting, and documented impact, Amina's Impact Innovation Network builds trust with their funding partners and secures continued support for expanding their initiative.",
+    title: "Plan Future Initiatives",
+    description: "With clear insights into financial flows for each purpose, Pastor James can make better decisions about future initiatives, set realistic budgets based on historical patterns, and build financial discipline across all church activities.",
   },
 ];
 
@@ -33,10 +33,10 @@ export default function HowItWorksSection() {
             How It Works
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-6">
-            Your journey to financial accountability and impact
+            Purpose-Based Money Management in Action
           </h2>
           <p className="text-[#767676] text-lg">
-            See how Tumia works through the story of Amina, Executive Director of Impact Innovation Network.
+            See how Tumia works through the story of Pastor James and his church's financial management journey.
           </p>
         </div>
         
@@ -51,7 +51,7 @@ export default function HowItWorksSection() {
           >
             <img 
               src={howItWorksImage} 
-              alt="Investment leads to growth - Two professionals shaking hands" 
+              alt="Church leaders organizing finances with purpose-based tracking" 
               className="w-full object-contain"
               style={{ maxHeight: '100%' }}
             />

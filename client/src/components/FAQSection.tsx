@@ -12,16 +12,16 @@ const faqs = [
     answer: "At launch, Tumia will be available in Rwanda, Kenya, and Nigeria. We have plans to expand to other African countries shortly after. If you're interested in Tumia for a specific country, please let us know when joining the waitlist.",
   },
   {
-    question: "How does Tumia integrate with existing financial services?",
-    answer: "Tumia offers API integrations with major banking providers, accounting software, and payment platforms across Africa. Our solution complements your existing financial infrastructure while providing enhanced capabilities for spend management, impact tracking, and outcome-based reporting.",
+    question: "What is purpose-based money management?",
+    answer: "Purpose-based money management means you can organize your money based on its intended use or purpose, all from a single account. Whether you're collecting funds for different church projects, managing community initiatives, or organizing your personal finances, Tumia helps you track every shilling based on what it's meant for.",
   },
   {
-    question: "How does Tumia help with funding accountability?",
-    answer: "Tumia provides tools to link spending directly to outcomes, generate transparent reports for funders, and track impact metrics over time. This creates trust and accountability between funded organizations and their funding partners, leading to more sustainable relationships and improved funding outcomes.",
+    question: "How is Tumia different from regular banking apps?",
+    answer: "Unlike traditional banking apps that simply show transactions and balances, Tumia allows you to create dedicated channels for different purposes without opening multiple accounts. You can track contributions by purpose, share specific funds with customizable permissions, and gain real-time insights into each purpose's financial status.",
   },
   {
-    question: "Is Tumia only for organizations that have received funding?",
-    answer: "Tumia is designed for any organization in Africa's innovation ecosystem that receives and manages funding. This includes NGOs, social enterprises, research institutions, and startups. Our platform helps establish strong financial accountability and demonstrate impact to funding partners.",
+    question: "When will the virtual sub-wallets feature be available?",
+    answer: "Our virtual sub-wallets feature, which allows individuals to split their main wallet into purpose-specific sub-wallets (for savings, bills, donations, etc.), is planned for release in our second phase. Current users will get priority access when this feature launches.",
   },
   {
     question: "How secure is Tumia for managing financial data?",
