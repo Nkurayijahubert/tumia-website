@@ -213,12 +213,12 @@ export default function WaitlistSection() {
             <div className="bg-primary p-10 md:p-12 text-white">
               <h2 className="text-3xl font-bold mb-6">Join our waitlist</h2>
               <p className="mb-8">
-                Be among the first to experience Tumia and bring order to your wallet. Early access members receive:
+                Be among the first to experience Tumia and organize money for every cause. Early access members receive:
               </p>
               <ul className="space-y-4">
                 {[
                   "Priority access to purpose-based tracking features",
-                  "First access to virtual sub-wallets when released",
+                  "First access to virtual sub-wallets when released in Q1 2026",
                   "Free personalized setup for your specific needs",
                   "Special early adopter pricing",
                 ].map((benefit, index) => (
@@ -289,7 +289,7 @@ export default function WaitlistSection() {
                     render={({ field }) => (
                       <FormItem>
                         <Label htmlFor="company" className="text-sm font-medium text-[#2A2A2A] mb-2">
-                          Church/Organization/Group Name
+                          Organization/Company Name
                         </Label>
                         <FormControl>
                           <Input 
@@ -318,7 +318,6 @@ export default function WaitlistSection() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="church">Church Leader/Pastor</SelectItem>
                             <SelectItem value="community">Community Group Leader</SelectItem>
                             <SelectItem value="individual">Individual User</SelectItem>
                             <SelectItem value="family">Family Finance Manager</SelectItem>

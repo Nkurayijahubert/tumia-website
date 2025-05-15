@@ -4,16 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
   {
-    question: "When will Tumia be available?",
-    answer: "Tumia is currently in private beta with select partners. We're planning a phased rollout starting in Q3 2025. Join our waitlist to be among the first to gain access.",
-  },
-  {
     question: "Which countries does Tumia support?",
-    answer: "At launch, Tumia will be available in Rwanda, Kenya, and Nigeria. We have plans to expand to other African countries shortly after. If you're interested in Tumia for a specific country, please let us know when joining the waitlist.",
+    answer: "Tumia is currently available in Rwanda only. We are expanding to Uganda and Kenya in Q1 2026. If you're interested in Tumia for a specific country, please let us know when joining the waitlist.",
   },
   {
     question: "What is purpose-based money management?",
-    answer: "Purpose-based money management means you can organize your money based on its intended use or purpose, all from a single account. Whether you're collecting funds for different church projects, managing community initiatives, or organizing your personal finances, Tumia helps you track every shilling based on what it's meant for.",
+    answer: "Purpose-based money management means you can organize your money based on its intended use or purpose, all from a single account. Whether you're collecting funds for different community projects, managing business initiatives, or organizing your personal finances, Tumia helps you track every dollar based on what it's meant for.",
   },
   {
     question: "How is Tumia different from regular banking apps?",
@@ -21,7 +17,7 @@ const faqs = [
   },
   {
     question: "When will the virtual sub-wallets feature be available?",
-    answer: "Our virtual sub-wallets feature, which allows individuals to split their main wallet into purpose-specific sub-wallets (for savings, bills, donations, etc.), is planned for release in our second phase. Current users will get priority access when this feature launches.",
+    answer: "Our virtual sub-wallets feature, which allows individuals and businesses to split their main wallet into purpose-specific sub-wallets (for savings, bills, expenses, etc.), is planned for release in Q1 2026. Current users will get priority access when this feature launches.",
   },
   {
     question: "How secure is Tumia for managing financial data?",

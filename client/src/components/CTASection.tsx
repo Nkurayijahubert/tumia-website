@@ -13,10 +13,10 @@ export default function CTASection() {
           className="max-w-4xl mx-auto text-center text-white"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-8">
-            Ready to transform financial accountability in your organization?
+            Ready to organize your money for every purpose?
           </h2>
           <p className="text-xl opacity-90 mb-10 max-w-2xl mx-auto">
-            Join Africa's innovation ecosystem in building financially accountable organizations that demonstrate real impact with Tumia.
+            Join our waitlist to be among the first to experience Tumia's purpose-based money management for your organization, business, or personal finances.
           </p>
           <a href="#waitlist">
             <Button className="px-8 py-7 bg-[#F9C846] text-primary font-semibold rounded-lg hover:bg-opacity-90 transition-all shadow-md text-center">
