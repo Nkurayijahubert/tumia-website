@@ -218,7 +218,7 @@ export default function WaitlistSection() {
               <ul className="space-y-4">
                 {[
                   "Priority access to purpose-based tracking features",
-                  "First access to virtual sub-wallets when released in Q1 2026",
+                  "First access to virtual sub-wallets when released in Q3 2025",
                   "Free personalized setup for your specific needs",
                   "Special early adopter pricing",
                 ].map((benefit, index) => (
