@@ -213,13 +213,13 @@ export default function WaitlistSection() {
             <div className="bg-primary p-10 md:p-12 text-white">
               <h2 className="text-3xl font-bold mb-6">Join our waitlist</h2>
               <p className="mb-8">
-                Be among the first to experience Tumia and unlock your organization's financial accountability. Early access members receive:
+                Be among the first to experience Tumia and bring order to your wallet. Early access members receive:
               </p>
               <ul className="space-y-4">
                 {[
-                  "Priority onboarding and setup assistance",
-                  "Exclusive financial management workshops",
-                  "Complimentary strategy session with our experts",
+                  "Priority access to purpose-based tracking features",
+                  "First access to virtual sub-wallets when released",
+                  "Free personalized setup for your specific needs",
                   "Special early adopter pricing",
                 ].map((benefit, index) => (
                   <motion.li 
@@ -289,7 +289,7 @@ export default function WaitlistSection() {
                     render={({ field }) => (
                       <FormItem>
                         <Label htmlFor="company" className="text-sm font-medium text-[#2A2A2A] mb-2">
-                          Organization Name
+                          Church/Organization/Group Name
                         </Label>
                         <FormControl>
                           <Input 
@@ -318,11 +318,12 @@ export default function WaitlistSection() {
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="founder">Founder/Co-founder</SelectItem>
-                            <SelectItem value="investor">Investor/Funder</SelectItem>
-                            <SelectItem value="accelerator">Accelerator/Incubator Program Manager</SelectItem>
+                            <SelectItem value="church">Church Leader/Pastor</SelectItem>
+                            <SelectItem value="community">Community Group Leader</SelectItem>
+                            <SelectItem value="individual">Individual User</SelectItem>
+                            <SelectItem value="family">Family Finance Manager</SelectItem>
+                            <SelectItem value="business">Small Business Owner</SelectItem>
                             <SelectItem value="ngo">NGO/Foundation Representative</SelectItem>
-                            <SelectItem value="finance">Finance Manager</SelectItem>
                             <SelectItem value="other">Other</SelectItem>
                           </SelectContent>
                         </Select>
