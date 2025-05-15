@@ -78,7 +78,7 @@ export default function PrivacyPolicy() {
               <li>Request a copy of your data in a structured, machine-readable format</li>
             </ul>
             <p className="mb-4 text-[#4A4A4A]">
-              To exercise these rights, please contact us at privacy@tumia.app.
+              To exercise these rights, please contact us at team@tumia.app.
             </p>
 
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-[#2A2A2A]">8. Data Retention</h2>
@@ -101,7 +101,7 @@ export default function PrivacyPolicy() {
               If you have any questions about this privacy policy or our data practices, please contact us at:
             </p>
             <p className="mb-4 text-[#4A4A4A]">
-              Email: privacy@tumia.app<br />
+              Email: team@tumia.app<br />
               Address: Kigali, Rwanda
             </p>
           </div>
