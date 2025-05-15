@@ -1,4 +1,11 @@
-import { Layers, CreditCard, Clock, Target, PieChart, Users } from "lucide-react";
+import {
+  Layers,
+  CreditCard,
+  Clock,
+  Target,
+  PieChart,
+  Users,
+} from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function FeaturesSection() {
@@ -28,17 +35,20 @@ export default function FeaturesSection() {
     {
       icon: <Layers className="text-2xl text-primary" />,
       title: "Purpose-Based Tracking",
-      description: "Create dedicated channels for each cause, whether you're managing tithes, donations, or community project funds.",
+      description:
+        "Whether you’re a church collecting tithes and donations, a community group raising funds for multiple projects, or an individual managing contributions for events, Tumia lets you create dedicated channels for each cause.",
     },
     {
       icon: <CreditCard className="text-2xl text-primary" />,
       title: "One Account, Many Purposes",
-      description: "No more confusion over which funds belong to which cause. Every contribution is tagged and tracked by its intended purpose.",
+      description:
+        "No more confusion over which funds belong to which cause. Every contribution is tagged and tracked by its intended purpose.",
     },
     {
       icon: <Clock className="text-2xl text-primary" />,
       title: "Real-Time Transparency",
-      description: "Instantly see how much has been collected for each need, generate reports, and build trust with your contributors.",
+      description:
+        "Instantly see how much has been collected for each cause, generate reports, and build trust with your contributors.",
     },
   ];
 
@@ -47,17 +57,20 @@ export default function FeaturesSection() {
     {
       icon: <Target className="text-2xl text-gray-600" />,
       title: "Virtual Sub-Wallets",
-      description: "Split your main wallet into multiple sub-wallets for savings, bills, donations, or business expenses without opening new accounts.",
+      description:
+        "Split your main wallet into multiple sub-wallets for savings, bills, donations, or business expenses without opening new accounts.",
     },
     {
       icon: <PieChart className="text-2xl text-gray-600" />,
       title: "Effortless Fund Allocation",
-      description: "Move money between sub-wallets, set budgets, and track spending for each purpose with ease.",
+      description:
+        "Move money between sub-wallets, set budgets, and track spending for each purpose with ease.",
     },
     {
       icon: <Users className="text-2xl text-gray-600" />,
       title: "Collaborative Management",
-      description: "Share specific sub-wallets with family, business partners, or groups, with customizable permissions.",
+      description:
+        "Share specific sub-wallets with family, business partners, or groups, with customizable permissions.",
     },
   ];
 
@@ -72,10 +85,12 @@ export default function FeaturesSection() {
             Purposeful Money Management for Africa
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia is becoming the go-to platform for organized and collaborative financial control, with two main features to transform how you manage money.
+            Tumia is becoming the go-to platform for organized and collaborative
+            financial control, with two main features to transform how you
+            manage money.
           </p>
         </div>
-        
+
         {/* Feature 1 Section */}
         <div className="mb-16">
           <div className="bg-[#F9C846]/10 rounded-lg p-6 mb-8">
@@ -83,13 +98,18 @@ export default function FeaturesSection() {
               <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                 <span className="text-white font-bold">✓</span>
               </div>
-              <h3 className="text-2xl font-bold text-[#2A2A2A]">Organize Money for Every Cause</h3>
+              <h3 className="text-2xl font-bold text-[#2A2A2A]">
+                Organize Money for Every Cause
+              </h3>
             </div>
             <p className="text-[#767676] text-lg mb-8 pl-14">
-              Whether you're a religious organization collecting tithes and donations, a community group raising funds for multiple projects, or an individual managing contributions for events, Tumia lets you create dedicated channels for each cause.
+              Whether you're a religious organization collecting tithes and
+              donations, a community group raising funds for multiple projects,
+              or an individual managing contributions for events, Tumia lets you
+              create dedicated channels for each cause.
             </p>
-            
-            <motion.div 
+
+            <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -105,26 +125,33 @@ export default function FeaturesSection() {
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-[#767676] text-sm">{feature.description}</p>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[#767676] text-sm">
+                    {feature.description}
+                  </p>
                 </motion.div>
               ))}
             </motion.div>
           </div>
-          
+
           {/* Feature 2 Section */}
           <div className="bg-gray-100 rounded-lg p-6">
             <div className="flex items-center mb-4">
               <div className="w-10 h-10 bg-gray-400 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
                 <span className="text-white font-bold">2</span>
               </div>
-              <h3 className="text-2xl font-bold text-[#2A2A2A]">Coming Soon: Bring Order to Your Wallet</h3>
+              <h3 className="text-2xl font-bold text-[#2A2A2A]">
+                Coming Soon: Bring Order to Your Wallet
+              </h3>
             </div>
             <p className="text-[#767676] text-lg mb-8 pl-14">
-              Organize your personal or business wallet—so your money is always where you need it, when you need it.
+              Organize your personal or business wallet—so your money is always
+              where you need it, when you need it.
             </p>
-            
-            <motion.div 
+
+            <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
@@ -143,8 +170,12 @@ export default function FeaturesSection() {
                   <div className="w-12 h-12 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
                     {feature.icon}
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-[#767676] text-sm">{feature.description}</p>
+                  <h3 className="text-lg font-semibold mb-2">
+                    {feature.title}
+                  </h3>
+                  <p className="text-[#767676] text-sm">
+                    {feature.description}
+                  </p>
                 </motion.div>
               ))}
             </motion.div>

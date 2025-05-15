@@ -1,5 +1,6 @@
 import { QuoteIcon } from "lucide-react";
 import { motion } from "framer-motion";
+import testimonialImage from "@assets/1744886722507.jpeg";
 
 export default function TestimonialSection() {
   return (
@@ -14,13 +15,19 @@ export default function TestimonialSection() {
         >
           <QuoteIcon size={40} className="text-[#F9C846] opacity-50 mx-auto mb-8" />
           <blockquote className="text-2xl md:text-3xl font-medium italic mb-8">
-            Tumia has transformed how our community group manages funds. We can now track contributions for multiple projects in one account, and everyone sees exactly where their money goes.
+            Tumia helped me collect and track wedding gift contributions for a friend's wedding. Before Tumia, money sent to my mobile wallet would mix with my personal funds, causing confusion. Now I can easily monitor each contribution separately, see total amounts collected, and maintain transparency with friends. It's been transformative for group collection management.
           </blockquote>
           <div className="flex items-center justify-center">
-            <div className="w-12 h-12 bg-[#F9C846] rounded-full mr-4"></div>
+            <div className="w-12 h-12 bg-[#F9C846] rounded-full mr-4 overflow-hidden">
+              <img 
+                src={testimonialImage} 
+                alt="Testimonial" 
+                className="w-full h-full object-cover"
+              />
+            </div>
             <div className="text-left">
-              <div className="font-semibold">Jean-Paul Kagame</div>
-              <div className="text-white/70">Community Association Leader, Kigali</div>
+              <div className="font-semibold">Muriel Ishimwe</div>
+              <div className="text-white/70">Kigali, Rwanda</div>
             </div>
           </div>
         </motion.div>
