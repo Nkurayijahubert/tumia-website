@@ -16,12 +16,26 @@ export default function HeroSection() {
             <span className="inline-block px-4 py-2 bg-[#F9C846]/20 text-primary rounded-full text-sm font-semibold mb-6">
               Coming Soon
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A2A2A] leading-tight mb-6">
-              Bring <span className="text-primary">Order</span> to Your <span className="text-primary">Wallet</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A2A2A] leading-tight mb-4">
+              Purposeful Money <span className="text-primary">Management</span> for Africa
             </h1>
-            <p className="text-lg md:text-xl text-[#767676] mb-8 max-w-xl mx-auto lg:mx-0">
-              Organize money for every cause - whether you're a church collecting tithes, a community group raising funds, or an individual managing contributions.
+            <p className="text-lg md:text-xl text-[#767676] mb-4 max-w-xl mx-auto lg:mx-0">
+              The go-to platform for organized and collaborative financial control
             </p>
+            <div className="bg-[#F9C846]/10 p-4 md:p-5 rounded-lg mb-6 text-left">
+              <div className="flex items-start mb-2">
+                <span className="bg-primary rounded-full text-white flex items-center justify-center w-6 h-6 mt-1 mr-3 flex-shrink-0 text-sm font-bold">1</span>
+                <p className="font-semibold">
+                  <span className="text-primary">Feature 1:</span> Organize Money for Every Cause - Track funds collected for different purposes in one account
+                </p>
+              </div>
+              <div className="flex items-start">
+                <span className="bg-gray-200 text-gray-700 rounded-full flex items-center justify-center w-6 h-6 mt-1 mr-3 flex-shrink-0 text-sm font-bold">2</span>
+                <p className="font-semibold">
+                  <span className="text-gray-500">Coming Soon:</span> Bring Order to Your Wallet - Create virtual sub-wallets for personal or business finances
+                </p>
+              </div>
+            </div>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
               <a href="#waitlist">
                 <Button className="px-8 py-7 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90 transition-all shadow-md text-center">

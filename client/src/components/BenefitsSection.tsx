@@ -53,11 +53,11 @@ export default function BenefitsSection() {
             Benefits
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-6">
-            Solutions for Everyone
+            Who Can Benefit from Tumia
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia transforms how you interact with your money, bringing order, transparency, 
-            and control to your finances for every purpose and need.
+            Our two powerful features serve different needs: purpose-based tracking for organizations collecting funds,
+            and virtual sub-wallets (coming soon) for individuals managing personal finances.
           </p>
         </div>
 

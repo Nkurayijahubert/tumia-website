@@ -33,10 +33,10 @@ export default function HowItWorksSection() {
             How It Works
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-6">
-            Purpose-Based Money Management in Action
+            Feature 1: Organize Money for Every Cause
           </h2>
           <p className="text-[#767676] text-lg">
-            See how Tumia works through the story of Pastor James and his church's financial management journey.
+            See how Pastor James uses Tumia to manage church finances with purpose-based tracking
           </p>
         </div>
         
