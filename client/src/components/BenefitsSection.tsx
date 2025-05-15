@@ -8,37 +8,37 @@ import ecosystemImage from "../assets/5.jpg";
 
 const benefitsData = {
   startups: {
-    title: "For Funded Organizations",
+    title: "For Churches & Religious Groups",
     items: [
-      "Build lasting financial discipline and demonstrate accountability",
-      "Access real-time tools and AI guidance for smarter spending",
-      "Link spending directly to outcomes and impact metrics",
-      "Easily demonstrate meaningful progress to current and future funding partners",
+      "Separate tithes, offerings, and special project funds in one account",
+      "Track donations in real-time and generate transparent reports",
+      "Build trust with congregants through purpose-based fund tracking",
+      "Manage multiple ministry budgets with ease and accountability",
     ],
     image: startupsImage,
-    alt: "African organization leaders working on financial accountability",
+    alt: "Religious leaders managing church funds for different purposes",
   },
   investors: {
-    title: "For Funders & Foundations",
+    title: "For Community Groups & Clubs",
     items: [
-      "Gain actionable insights and transparent progress tracking",
-      "Ensure that funding translates into real-world impact",
-      "Release funds in tranches tied to specific milestones and outcomes",
-      "Foster a more accountable and impactful innovation ecosystem in Africa",
+      "Manage dues, event collections, and project funds from one account",
+      "Track every contribution by its specific purpose",
+      "Instantly see how much has been collected for each community need",
+      "Build transparency and trust with community members",
     ],
     image: investorsImage,
-    alt: "Funding partners reviewing impact metrics with organization leaders",
+    alt: "Community groups organizing finances for multiple projects",
   },
   ecosystem: {
-    title: "For the Ecosystem",
+    title: "For Individuals & Families",
     items: [
-      "Raise the standard of financial accountability across Africa's innovation landscape",
-      "Bridge the gap between funding and sustainable impact",
-      "Increase success rates of funded initiatives and programs",
-      "Drive inclusive economic development and measurable change across Africa",
+      "Coming soon: Create virtual sub-wallets for savings, bills, and family support",
+      "Coming soon: Share specific sub-wallets with customizable permissions",
+      "Coming soon: Set budgets and track spending for each purpose",
+      "Coming soon: Get instant balance updates and spending alerts for each sub-wallet",
     ],
     image: ecosystemImage,
-    alt: "African innovation ecosystem stakeholders celebrating increased impact of funded initiatives",
+    alt: "Family members collaboratively managing finances for different purposes",
   },
 };
 
@@ -72,19 +72,19 @@ export default function BenefitsSection() {
                 value="startups"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                For Funded Organizations
+                Churches & Religious Groups
               </TabsTrigger>
               <TabsTrigger
                 value="investors"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                For Funders
+                Community Groups
               </TabsTrigger>
               <TabsTrigger
                 value="ecosystem"
                 className="flex-1 rounded-none data-[state=active]:bg-white data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary"
               >
-                For the Ecosystem
+                Individuals & Families
               </TabsTrigger>
             </TabsList>
 

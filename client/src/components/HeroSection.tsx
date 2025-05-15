@@ -17,10 +17,10 @@ export default function HeroSection() {
               Coming Soon
             </span>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#2A2A2A] leading-tight mb-6">
-              Connecting <span className="text-primary">Funding</span> to <span className="text-primary">Impact</span>
+              Bring <span className="text-primary">Order</span> to Your <span className="text-primary">Wallet</span>
             </h1>
             <p className="text-lg md:text-xl text-[#767676] mb-8 max-w-xl mx-auto lg:mx-0">
-              We help funded organizations build strong financial habits, achieve meaningful outcomes, and demonstrate accountability to their funding partners.
+              Organize money for every cause - whether you're a church collecting tithes, a community group raising funds, or an individual managing contributions.
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
               <a href="#waitlist">
@@ -47,7 +47,7 @@ export default function HeroSection() {
             <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
               <img 
                 src={dashboardImage} 
-                alt="Tumia financial dashboard showing business metrics and growth charts" 
+                alt="Tumia dashboard showing purpose-based wallet management" 
                 className="w-full h-auto"
               />
             </div>

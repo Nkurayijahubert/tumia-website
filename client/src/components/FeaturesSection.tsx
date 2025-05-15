@@ -1,36 +1,36 @@
-import { Target, CreditCard, Brain, LineChart, CalendarCheck, Coins } from "lucide-react";
+import { Target, CreditCard, Layers, PieChart, Users, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
 const features = [
   {
-    icon: <Target className="text-2xl text-primary" />,
-    title: "Goal Setting & Budgeting",
-    description: "Set clear business goals and allocate budgets for each funding stage with AI-suggested budget allocations.",
+    icon: <Layers className="text-2xl text-primary" />,
+    title: "Purpose-Based Tracking",
+    description: "Create dedicated channels for each cause, whether you're managing tithes, donations, or community project funds.",
   },
   {
     icon: <CreditCard className="text-2xl text-primary" />,
-    title: "Smart Spend Management",
-    description: "Manage spending efficiently through a dedicated wallet and virtual cards, fostering real-time financial discipline.",
+    title: "One Account, Many Purposes",
+    description: "No more confusion over which funds belong to which cause. Every contribution is tagged and tracked by its intended purpose.",
   },
   {
-    icon: <Brain className="text-2xl text-primary" />,
-    title: "AI-Driven Insights",
-    description: "Get intelligent suggestions and coaching to make smarter financial decisions and adjust to changing realities.",
+    icon: <Clock className="text-2xl text-primary" />,
+    title: "Real-Time Transparency",
+    description: "Instantly see how much has been collected for each need, generate reports, and build trust with your contributors.",
   },
   {
-    icon: <LineChart className="text-2xl text-primary" />,
-    title: "Automated Reporting",
-    description: "Generate customized reports that link spending to outcomes and impact, for effective accountability to funding partners and stakeholders.",
+    icon: <Target className="text-2xl text-primary" />,
+    title: "Virtual Sub-Wallets",
+    description: "Coming soon: Split your main wallet into multiple sub-wallets for savings, bills, donations, or business expenses without opening new accounts.",
   },
   {
-    icon: <CalendarCheck className="text-2xl text-primary" />,
-    title: "Milestone Tracking",
-    description: "Track progress against key milestones with objective verification of completion for funding partners and stakeholders.",
+    icon: <PieChart className="text-2xl text-primary" />,
+    title: "Effortless Fund Allocation",
+    description: "Coming soon: Move money between sub-wallets, set budgets, and track spending for each purpose with ease.",
   },
   {
-    icon: <Coins className="text-2xl text-primary" />,
-    title: "Impact Assessment",
-    description: "Tools that measure and showcase your organization's impact and financial accountability to current and future funding partners.",
+    icon: <Users className="text-2xl text-primary" />,
+    title: "Collaborative Management",
+    description: "Coming soon: Share specific sub-wallets with family, business partners, or groups, with customizable permissions.",
   },
 ];
 
@@ -64,10 +64,10 @@ export default function FeaturesSection() {
             Features
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2A2A2A] mb-6">
-            Everything you need for financial accountability
+            Organize Money for Every Cause
           </h2>
           <p className="text-[#767676] text-lg">
-            Tumia combines smart spend management, goal-setting, and impact tracking to help organizations across Africa make data-driven decisions that maximize their funding's impact.
+            Tumia is becoming the go-to platform for purposeful, organized, and collaborative money management in Africa. One account, many purposes - all managed with ease.
           </p>
         </div>
         
