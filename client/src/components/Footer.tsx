@@ -31,8 +31,6 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-4">Company</h4>
             <ul className="space-y-3">
               <li><a href="#" className="text-white/70 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Blog</a></li>
               <li><a href="#contact" className="text-white/70 hover:text-white transition-colors">Contact</a></li>
             </ul>
           </div>
@@ -40,9 +38,9 @@ export default function Footer() {
           <div>
             <h4 className="text-lg font-semibold mb-4">Legal</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="text-white/70 hover:text-white transition-colors">Cookie Policy</a></li>
+              <li><a href="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms-of-service" className="text-white/70 hover:text-white transition-colors">Terms of Service</a></li>
+              <li><a href="/cookie-policy" className="text-white/70 hover:text-white transition-colors">Cookie Policy</a></li>
             </ul>
           </div>
         </div>

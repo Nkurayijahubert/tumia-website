@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/Home";
 import Confirmation from "@/pages/Confirmation";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import TermsOfService from "@/pages/TermsOfService";
+import CookiePolicy from "@/pages/CookiePolicy";
 
 /**
  * Simple routing approach that just checks the location directly
@@ -21,6 +24,21 @@ function App() {
     if (path === '/confirm') {
       console.log("Rendering Confirmation page");
       return <Confirmation />;
+    }
+    
+    if (path === '/privacy-policy') {
+      console.log("Rendering Privacy Policy page");
+      return <PrivacyPolicy />;
+    }
+    
+    if (path === '/terms-of-service') {
+      console.log("Rendering Terms of Service page");
+      return <TermsOfService />;
+    }
+    
+    if (path === '/cookie-policy') {
+      console.log("Rendering Cookie Policy page");
+      return <CookiePolicy />;
     }
     
     // Default to home
