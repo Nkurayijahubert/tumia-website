@@ -41,16 +41,29 @@ export default function ContactSection() {
 
   const contactMutation = useMutation({
     mutationFn: async (data: FormValues) => {
-      // For now, we'll simulate sending an email
-      // In a real implementation, this would send to team@tumia.app
-      console.log("Contact form data:", data);
+      console.log("Sending contact form data:", data);
       
-      // Simulate API call
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          resolve({ success: true });
-        }, 1000);
+      const emailData = {
+        senderName: data.name,
+        senderEmail: data.email,
+        subject: data.subject,
+        message: data.message,
+        recipientEmail: "team@tumia.app"
+      };
+      
+      const response = await fetch("https://tumia.fly.dev/emails/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(emailData),
       });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to send email: ${response.status} ${response.statusText}`);
+      }
+      
+      return await response.json();
     },
     onSuccess: () => {
       console.log("Contact form submission successful");
