@@ -99,14 +99,11 @@ export default function FeaturesSection() {
                 <span className="text-white font-bold">✓</span>
               </div>
               <h3 className="text-2xl font-bold text-[#2A2A2A]">
-                Organize Money for Every Cause
+                Collect Contributions
               </h3>
             </div>
             <p className="text-[#767676] text-lg mb-8 pl-14">
-              Whether you're a religious organization collecting tithes and
-              donations, a community group raising funds for multiple projects,
-              or an individual managing contributions for events, Tumia lets you
-              create dedicated channels for each cause.
+              Whether you're a community group raising funds for multiple projects/causes, or an individual managing contributions for events, Tumia lets you easily reconcile collected funds.
             </p>
 
             <motion.div
