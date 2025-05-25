@@ -8,6 +8,7 @@ import Confirmation from "@/pages/Confirmation";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import CookiePolicy from "@/pages/CookiePolicy";
+import RequestDemo from "@/pages/RequestDemo";
 
 /**
  * Simple routing approach that just checks the location directly
@@ -39,6 +40,11 @@ function App() {
     if (path === '/cookie-policy') {
       console.log("Rendering Cookie Policy page");
       return <CookiePolicy />;
+    }
+    
+    if (path === '/request-demo') {
+      console.log("Rendering Request Demo page");
+      return <RequestDemo />;
     }
     
     // Default to home

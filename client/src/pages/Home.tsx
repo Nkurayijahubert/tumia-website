@@ -1,10 +1,9 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
-import BenefitsSection from "@/components/BenefitsSection";
-// Removing How It Works section as requested
+// Removing Benefits section and How It Works section as requested
 import TestimonialSection from "@/components/TestimonialSection";
-import WaitlistSection from "@/components/WaitlistSection";
+import ContactSection from "@/components/ContactSection";
 import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
@@ -16,9 +15,8 @@ export default function Home() {
       <main>
         <HeroSection />
         <FeaturesSection />
-        <BenefitsSection />
         <TestimonialSection />
-        <WaitlistSection />
+        <ContactSection />
         <FAQSection />
         <CTASection />
       </main>
