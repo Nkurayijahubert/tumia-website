@@ -101,7 +101,7 @@ export default function RequestDemo() {
               </div>
               
               <a 
-                href="https://calendly.com/hinia/demo" 
+                href="https://calendly.com/tumia/30min?month=2025-05" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block w-full"

@@ -11,8 +11,7 @@ export default function Footer() {
               <img src={logoImage} alt="Tumia" className="h-10 filter brightness-0 invert" />
             </a>
             <p className="text-white/80 mb-6 max-w-md">
-              The purpose-based money management platform for Africa. Create dedicated channels for different causes 
-              and bring order to your wallet with virtual sub-wallets (coming soon).
+              Tumia organize your wallet based on purpose and goals. You can make it collaborative as well.
             </p>
             <div className="flex space-x-4">
               <a href="https://x.com/usetumia" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors">
