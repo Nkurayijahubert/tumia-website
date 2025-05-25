@@ -103,7 +103,7 @@ export default function FeaturesSection() {
               </h3>
             </div>
             <p className="text-[#767676] text-lg mb-8 pl-14">
-              Keep your personal finances separate from collected funds. Create dedicated spaces for each project, event, or cause you're managing. Track contributions in real-time and maintain complete transparency with contributors.
+              Transform how you manage collected money by organizing it based on specific purposes. Whether collecting for a wedding gift, community project, or group event, each purpose gets its own tracking space. See exactly how much has been collected for each goal while keeping everything separate from your personal money.
             </p>
 
             <motion.div
