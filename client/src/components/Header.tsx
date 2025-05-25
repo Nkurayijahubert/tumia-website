@@ -16,7 +16,7 @@ export default function Header() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
-            <a href="#" className="flex items-center">
+            <a href="/" className="flex items-center">
               <img src={logoImage} alt="Tumia" className="h-10" />
             </a>
           </div>
