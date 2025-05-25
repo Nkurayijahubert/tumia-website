@@ -103,7 +103,7 @@ export default function FeaturesSection() {
               </h3>
             </div>
             <p className="text-[#767676] text-lg mb-8 pl-14">
-              Whether you're a community group raising funds for multiple projects/causes, or an individual managing contributions for events, Tumia lets you easily reconcile collected funds.
+              Keep your personal finances separate from collected funds. Create dedicated spaces for each project, event, or cause you're managing. Track contributions in real-time and maintain complete transparency with contributors.
             </p>
 
             <motion.div
