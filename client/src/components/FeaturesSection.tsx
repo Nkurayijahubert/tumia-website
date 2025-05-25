@@ -36,7 +36,7 @@ export default function FeaturesSection() {
       icon: <Layers className="text-2xl text-primary" />,
       title: "Purpose-Based Tracking",
       description:
-        "Whether you’re a church collecting tithes and donations, a community group raising funds for multiple projects, or an individual managing contributions for events, Tumia lets you create dedicated channels for each cause.",
+        "Whether collecting for a wedding gift, community project, or group event, each purpose gets its own tracking space.",
     },
     {
       icon: <CreditCard className="text-2xl text-primary" />,

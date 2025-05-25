@@ -25,11 +25,8 @@ export default function Header() {
             <a href="#features" className="text-neutral hover:text-primary transition-colors font-medium">
               Features
             </a>
-            <a href="#benefits" className="text-neutral hover:text-primary transition-colors font-medium">
-              Benefits
-            </a>
-            <a href="#how-it-works" className="text-neutral hover:text-primary transition-colors font-medium">
-              How It Works
+            <a href="/request-demo" className="text-neutral hover:text-primary transition-colors font-medium">
+              Request Demo
             </a>
             <a href="#contact" className="text-neutral hover:text-primary transition-colors font-medium">
               Contact
@@ -37,9 +34,9 @@ export default function Header() {
           </nav>
           
           <div className="hidden md:block">
-            <a href="#waitlist">
+            <a href="https://app.tumia.app/auth/signin" target="_blank" rel="noopener noreferrer">
               <Button className="bg-primary text-white font-medium rounded-lg hover:bg-opacity-90 transition-all shadow-md">
-                Join Waitlist
+                Get Started
               </Button>
             </a>
           </div>
@@ -70,18 +67,11 @@ export default function Header() {
                 Features
               </a>
               <a 
-                href="#benefits" 
+                href="/request-demo" 
                 className="block text-neutral hover:text-primary transition-colors font-medium py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                Benefits
-              </a>
-              <a 
-                href="#how-it-works" 
-                className="block text-neutral hover:text-primary transition-colors font-medium py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                How It Works
+                Request Demo
               </a>
               <a 
                 href="#contact" 
@@ -91,11 +81,13 @@ export default function Header() {
                 Contact
               </a>
               <a 
-                href="#waitlist"
+                href="https://app.tumia.app/auth/signin"
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <Button className="w-full bg-primary text-white font-medium rounded-lg hover:bg-opacity-90 transition-all shadow-md">
-                  Join Waitlist
+                  Get Started
                 </Button>
               </a>
             </div>
