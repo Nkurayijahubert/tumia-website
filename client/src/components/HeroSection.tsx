@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import dashboardImage from "../assets/1.jpg";
+import dashboardImage from "@assets/tumia dashboard.png";
 
 export default function HeroSection() {
   return (
