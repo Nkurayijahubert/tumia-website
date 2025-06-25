@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, Clock, Trash2, Shield, Phone, Mail, MessageCircle } from "lucide-react";
+import { AlertTriangle, Clock, Trash2, Shield, Mail } from "lucide-react";
 
 export default function DeleteAccount() {
   return (
@@ -41,21 +41,11 @@ export default function DeleteAccount() {
                 <span className="bg-[#005B68] text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-3">2</span>
                 Contact Our Support Team:
               </h3>
-              <div className="ml-9 space-y-3">
+              <div className="ml-9">
                 <div className="flex items-center text-gray-700">
                   <Mail className="w-4 h-4 mr-2 text-[#005B68]" />
                   <span className="font-medium mr-2">Email:</span>
                   <a href="mailto:team@tumia.app" className="text-[#005B68] hover:underline">team@tumia.app</a>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <Phone className="w-4 h-4 mr-2 text-[#005B68]" />
-                  <span className="font-medium mr-2">Phone:</span>
-                  <a href="tel:+250780947401" className="text-[#005B68] hover:underline">+250780947401</a>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <MessageCircle className="w-4 h-4 mr-2 text-[#005B68]" />
-                  <span className="font-medium mr-2">WhatsApp:</span>
-                  <a href="https://wa.me/250780947401" target="_blank" rel="noopener noreferrer" className="text-[#005B68] hover:underline">https://wa.me/250780947401</a>
                 </div>
               </div>
             </div>
@@ -219,14 +209,6 @@ export default function DeleteAccount() {
                 <div className="flex items-center">
                   <strong className="min-w-[100px] text-[#005B68]">Email:</strong>
                   <a href="mailto:team@tumia.app" className="text-[#005B68] hover:underline">team@tumia.app</a>
-                </div>
-                <div className="flex items-center">
-                  <strong className="min-w-[100px] text-[#005B68]">Phone:</strong>
-                  <a href="tel:+250780947401" className="text-[#005B68] hover:underline">+250780947401</a>
-                </div>
-                <div className="flex items-center">
-                  <strong className="min-w-[100px] text-[#005B68]">WhatsApp:</strong>
-                  <a href="https://wa.me/250780947401" target="_blank" rel="noopener noreferrer" className="text-[#005B68] hover:underline">https://wa.me/250780947401</a>
                 </div>
                 <div className="flex items-center">
                   <strong className="min-w-[100px] text-[#005B68]">Response Time:</strong>
