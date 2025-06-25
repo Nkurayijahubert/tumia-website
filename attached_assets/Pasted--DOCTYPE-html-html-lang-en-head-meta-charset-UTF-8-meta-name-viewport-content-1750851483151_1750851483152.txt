@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Account - Tumia Wallet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f6f1ed;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0B3C49;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: #f6f1ed;
+            border-radius: 10px;
+            border-left: 4px solid #0B3C49;
+        }
+
+        .section h2 {
+            color: #0B3C49;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .data-table th {
+            background-color: #0B3C49;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f6f1ed;
+        }
+
+        .delete {
+            background-color: #dc3545;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .anonymize {
+            background-color: #f9c846;
+            color: #212529;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .retain {
+            background-color: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .contact-info {
+            background-color: #f6f1ed;
+            border-left-color: #f9c846;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .contact-info h3 {
+            color: #0B3C49;
+            margin-bottom: 15px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .contact-method strong {
+            min-width: 100px;
+            margin-right: 10px;
+            color: #0B3C49;
+        }
+
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #f9c846;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            margin: 0 10px 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item h4 {
+            color: #0B3C49;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px solid #e9ecef;
+            margin-top: 40px;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .timeline {
+                flex-direction: column;
+            }
+            
+            .timeline-item {
+                margin: 0 0 20px 0;
+            }
+        }
+
+        .substeps {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 30px;
+            list-style-type: decimal;
+        }
+        .substeps li {
+            background: none;
+            box-shadow: none;
+            padding: 0 0 0 5px;
+            margin-bottom: 8px;
+            border-radius: 0;
+            font-size: 1em;
+            color: #0B3C49;
+            position: static;
+        }
+        .steps > li {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Tumia Wallet</div>
+            <div class="subtitle">Account Deletion Request</div>
+            <p>We respect your right to control your personal data</p>
+        </div>
+
+        <div class="section">
+            <h2>How to Request Account Deletion</h2>
+            <p>You can request the deletion of your Tumia Wallet account and associated data through any of the following methods:</p>
+            
+            <ol class="steps">
+                <li>
+                    <strong>Through the Tumia Wallet App:</strong>
+                    <ol class="substeps">
+                        <li>Open the Tumia Wallet app on your device</li>
+                        <li>Navigate to Profile or Settings</li>
+                        <li>Select "Delete Account" option</li>
+                        <li>Provide a reason for deletion</li>
+                        <li>Confirm your request</li>
+                    </ol>
+                </li>
+                <li>
+                    <strong>Contact Our Support Team:</strong>
+                    <ol class="substeps">
+                        <li>Email: team@tumia.app</li>
+                        <li>Phone: +250780947401</li>
+                        <li>WhatsApp: https://wa.me/250780947401</li>
+                    </ol>
+                </li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>What Happens to Your Data</h2>
+            <p>When you request account deletion, here's what happens to your data:</p>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Action</th>
+                        <th>Timeline</th>
+                        <th>Reason</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Personal Information</strong><br>Name, phone number, email, profile data</td>
+                        <td><span class="delete">Permanently Deleted</span></td>
+                        <td>Within 30 days</td>
+                        <td>Privacy protection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Authentication Data</strong><br>PIN, passwords, security settings</td>
+                        <td><span class="delete">Permanently Deleted</span></td>
+                        <td>Immediately</td>
+                        <td>Security</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Wallet Configuration</strong><br>Sub-wallets, permissions, preferences</td>
+                        <td><span class="delete">Permanently Deleted</span></td>
+                        <td>Within 30 days</td>
+                        <td>Account closure</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Transaction Records</strong><br>Payment history, amounts, dates</td>
+                        <td><span class="anonymize">Anonymized</span></td>
+                        <td>Within 30 days</td>
+                        <td>Legal compliance (7 years)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Audit Logs</strong><br>Security events, access logs</td>
+                        <td><span class="retain">Retained</span></td>
+                        <td>Permanently</td>
+                        <td>Security & compliance</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Support Communications</strong><br>Emails, chat history</td>
+                        <td><span class="retain">Retained</span></td>
+                        <td>2 years</td>
+                        <td>Service improvement</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Deletion Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Immediate</h4>
+                    <p>Account deactivated<br>Access revoked<br>Sessions terminated</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>7 Days</h4>
+                    <p>Request cancellation window<br>Contact support to cancel</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>30 Days</h4>
+                    <p>Complete data deletion<br>Personal data removed<br>Transactions anonymized</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Important Information</h2>
+            
+            <div class="warning">
+                <strong>⚠️ Irreversible Action:</strong> Once your account is deleted, personal data cannot be recovered. You will need to create a new account if you want to use Tumia Wallet again.
+            </div>
+
+            <div class="contact-info">
+                <h3>Need Help?</h3>
+                <p>If you have questions about account deletion or need assistance:</p>
+                <div class="contact-method">
+                    <strong>Email:</strong> team@tumia.app
+                </div>
+                <div class="contact-method">
+                    <strong>Phone:</strong> +250780947401
+                </div>
+                <div class="contact-method">
+                    <strong>WhatsApp:</strong> https://wa.me/250780947401
+                </div>
+                <div class="contact-method">
+                    <strong>Response Time:</strong> Within 24 hours
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Legal Compliance</h2>
+            <p>Tumia Wallet is required by law to retain certain financial data for regulatory compliance:</p>
+            <ul>
+                <li><strong>Tax Purposes:</strong> 7 years (transaction data anonymized)</li>
+                <li><strong>Anti-Money Laundering (AML):</strong> 7 years (transaction data anonymized)</li>
+                <li><strong>Regulatory Reporting:</strong> As required by financial authorities</li>
+                <li><strong>Security Audits:</strong> Audit logs retained for security purposes</li>
+            </ul>
+            <p>All retained data is anonymized to protect your privacy while meeting legal obligations.</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>Tumia Wallet</strong> - Secure Digital Wallet Services</p>
+            <p>© 2024 Tumia Wallet. All rights reserved.</p>
+            <p>
+                <a href="https://tumia.app/privacy-policy">Privacy Policy</a> | 
+                <a href="https://tumia.app/terms-of-service">Terms of Service</a> | 
+                <a href="https://tumia.app/contact">Support</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html> 

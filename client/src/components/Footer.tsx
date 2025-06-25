@@ -40,6 +40,7 @@ export default function Footer() {
               <li><a href="/privacy-policy" className="text-white/70 hover:text-white transition-colors">Privacy Policy</a></li>
               <li><a href="/terms-of-service" className="text-white/70 hover:text-white transition-colors">Terms of Service</a></li>
               <li><a href="/cookie-policy" className="text-white/70 hover:text-white transition-colors">Cookie Policy</a></li>
+              <li><a href="/delete-account" className="text-white/70 hover:text-white transition-colors">Delete Account</a></li>
             </ul>
           </div>
         </div>

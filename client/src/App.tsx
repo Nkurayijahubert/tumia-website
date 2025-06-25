@@ -8,6 +8,7 @@ import Confirmation from "@/pages/Confirmation";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import TermsOfService from "@/pages/TermsOfService";
 import CookiePolicy from "@/pages/CookiePolicy";
+import DeleteAccount from "@/pages/DeleteAccount";
 import RequestDemo from "@/pages/RequestDemo";
 
 /**
@@ -45,6 +46,11 @@ function App() {
     if (path === '/request-demo') {
       console.log("Rendering Request Demo page");
       return <RequestDemo />;
+    }
+    
+    if (path === '/delete-account') {
+      console.log("Rendering Delete Account page");
+      return <DeleteAccount />;
     }
     
     // Default to home
